@@ -15,18 +15,18 @@ http.createServer((request, response) => {
     }
   })
 
-  if (q.pathname.includes('document')) {
-    filepath = (__dirname + '/document.html');
+  if (q.pathname.includes('documentation')) {
+    filepath = (__dirname + '/documentation.html');
   } else {
     filepath = 'index.html';
-}
+  }
 
   fs.readFile(filepath, (err, data) => {
     if (err) {
       throw err;
     }
 
-    response.writeHead(200, {'Content-Type': 'text/html'});
+    response.writeHead(200, { 'Content-Type': 'text/html' });
     response.write(data);
     response.end();
 
