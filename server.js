@@ -5,23 +5,23 @@ url = require('url');
 http.createServer((request, response) => {
   let addr = request.url,
   q = url.parse(addr, true),
-  filepath = '';
+  filePath = '';
 
-  fs.appendfile('log.txt', 'URL: ' + addr + '\nTimestamp: ' + new Date() + '\n\n', (err) => {
+  fs.appendFile('log.txt', 'URL: ' + addr + '\nTimestamp: ' + new Date() + '\n\n', (err) => {
     if (err) {
-      console.log(err)
+      console.log(err);
     } else {
       console.log('Added to log.');
     }
   })
 
-  if (q.pathname.includes('documentation')) {
-    filepath = (__dirname + '/documentation.html');
+  if (q.pathname.includes('document')) {
+    filePath = (__dirname + '/document.html');
   } else {
-    filepath = 'index.html';
+    filePath = 'index.html';
   }
 
-  fs.readFile(filepath, (err, data) => {
+  fs.readFile(filePath, (err, data) => {
     if (err) {
       throw err;
     }
