@@ -1,5 +1,6 @@
-const express = require('express');
-const app = express();
+const express = require('express'),
+app = express(),
+
 
 let topBooks = [
   {
@@ -25,7 +26,7 @@ app.use(myLogger);
 
 // GET requests
 app.get('/', (req, res) => {
-  res.send('Welcome to my app!');
+  res.send('Welcome Sergio!');
 });
 
 app.get('/secreturl', (req, res) => {
