@@ -1,7 +1,6 @@
 const express = require('express'),
   app = express(),
-  morgan = require('morgan')
-  ;
+  morgan = require('morgan');
 
 let topMovies = [
   {
@@ -54,6 +53,11 @@ let myLogger = (req, res, next) => {
 app.use(myLogger);
 app.use(express.static('public'));
 app.use(morgan('common'));
+
+app.use((err, req, res, next) => {
+  console.error(err.sstack);
+  res.status(500).send('Something broke');
+});
 
 // GET requests
 app.get('/', (req, res) => {
