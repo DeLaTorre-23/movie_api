@@ -81,10 +81,10 @@ let movies = [
 
 let users = [
   {
-    Username: 'serch23',
-    Password: 'lonely',
-    Email: 'serch23@gmail.com',
-    Birthday: '23/11/1989'
+    user: 'serch23',
+    password: 'lonely',
+    email: 'serch23@gmail.com',
+    birthday: '23/11/1989'
   }
 ];
 
@@ -127,12 +127,12 @@ app.get('/users', (req, res) => {
 // POST requests
 // Allow new users to register
 app.post('/users', (req, res) => {
-  res.send('Successful POST request registering new user: ' + req.params.name);
+  res.send('Successful POST request registering new user');
 });
 
 // Post a new movie to the "list of favourites movie" of a user
-app.post('/users/:user/movies/:moviesID', (req, res) => {
-  res.send('Successful POST request adding the movie: ' + req.params.name + ' in "Favourite List" of ' + req.params.user);
+app.post('/users/:user/movies/:title', (req, res) => {
+  res.send('Successful POST request adding the movie: ' + req.params.title + ' in "Favourite List" of ' + req.params.user);
 });
 
 // PUT requests
@@ -144,12 +144,12 @@ app.put('/users/:user', (req, res) => {
 // DELETE requests
 // Deregister a user from the database, by name
 app.delete('/users/:user', (req, res) => {
-  res.send('Successful DELETE request removed the user: ' + req.params.user + 'from the database');
+  res.send('Successful DELETE request removed the user: ' + req.params.user + ' from the database');
 });
 
 // Deletes a movie from the "Favourite List", by name
-app.delete('/users/:user/movies/:name', (req, res) => {
-  res.send('Successful DELETE request removed movie from the Favourite List of the user: ' + req.params.user);
+app.delete('/users/:user/movies/:title', (req, res) => {
+  res.send('Successful DELETE request removed movie from the "Favourite List" of the user: ' + req.params.user);
 });
 
 // listen for requests
