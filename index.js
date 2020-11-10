@@ -18,73 +18,73 @@ app.use((err, req, res, next) => {
 
 let movies = [
   {
-    title: 'Enron, the smartest guys in the room',
-    director: 'Alex Gibney',
-    genre: 'Documentary',
-    description: ''
+    Title: 'Enron, the smartest guys in the room',
+    Director: 'Alex Gibney',
+    Genre: 'Documentary',
+    Description: ''
   },
   {
-    title: 'Bowling for Columbine',
-    director: 'Michael Moore',
-    genre: 'Documentary',
-    description: ''
+    Title: 'Bowling for Columbine',
+    Director: 'Michael Moore',
+    Genre: 'Documentary',
+    Description: ''
   },
   {
-    title: 'Food, Inc',
-    director: 'Robert Kenner',
-    genre: 'Documentary',
-    description: ''
+    Title: 'Food, Inc',
+    Director: 'Robert Kenner',
+    Genre: 'Documentary',
+    Description: ''
   },
   {
-    title: 'Inside Job',
-    director: 'Charles Ferguson',
-    genre: 'Documentary',
-    description: ''
+    Title: 'Inside Job',
+    Director: 'Charles Ferguson',
+    Genre: 'Documentary',
+    Description: ''
   },
   {
-    title: 'Citizenfour',
-    director: 'Laura Poitras',
-    genre: 'Documentary',
-    description: ''
+    Title: 'Citizenfour',
+    Director: 'Laura Poitras',
+    Genre: 'Documentary',
+    Description: ''
   },
   {
-    title: 'Cowspiracy',
-    director: 'Kip Andersen',
-    genre: 'Documentary',
-    description: ''
+    Title: 'Cowspiracy',
+    Director: 'Kip Andersen',
+    Genre: 'Documentary',
+    Description: ''
   },
   {
-    title: 'Ícaro',
-    director: 'Bryan Fogel',
-    genre: 'Documentary',
-    description: ''
+    Title: 'Ícaro',
+    Director: 'Bryan Fogel',
+    Genre: 'Documentary',
+    Description: ''
   },
   {
-    title: 'Our Planet',
-    director: 'Alastair Fothergill',
-    genre: 'Documentary',
-    description: ''
+    Title: 'Our Planet',
+    Director: 'Alastair Fothergill',
+    Genre: 'Documentary',
+    Description: ''
   },
   {
-    title: 'Terra',
-    director: 'Michael Pitiot',
-    genre: 'Documentary',
-    description: ''
+    Title: 'Terra',
+    Director: 'Michael Pitiot',
+    Genre: 'Documentary',
+    Description: ''
   },
   {
-    title: 'What the health',
-    director: 'Kip Andersen',
-    genre: 'Documentary',
-    description: ''
+    Title: 'What the health',
+    Director: 'Kip Andersen',
+    Genre: 'Documentary',
+    Description: ''
   }
 ];
 
 let users = [
   {
-    Username: 'serch23',
+    User: 'serch23',
     Password: 'lonely',
     Email: 'serch23@gmail.com',
-    Birthday: '23/11/1989'
+    Birthdate: '23/11/1989'
   }
 ];
 
@@ -105,17 +105,17 @@ app.get('/movies', (req, res) => {
 });
 
 // Get the data about a single movie, by title
-app.get('/movies/:title', (req, res) => {
+app.get('/movies/:Title', (req, res) => {
   res.send('Successful GET request returning data on movie title: ' + req.params.title);
 });
 
 // Get the data about genres, by genre
-app.get('/movies/genres/:genre', (req, res) => {
+app.get('/movies/genres/:Genre', (req, res) => {
   res.send('Successful GET request returning data on movie genre: ' + req.params.genre);
 });
 
 // Get the data about a director, by name
-app.get('/movies/directors/:name', (req, res) => {
+app.get('/movies/directors/:Director', (req, res) => {
   res.send('Successful GET request returning data on director: ' + req.params.name);
 });
 
@@ -127,29 +127,29 @@ app.get('/users', (req, res) => {
 // POST requests
 // Allow new users to register
 app.post('/users', (req, res) => {
-  res.send('Successful POST request registering new user: ' + req.params.name);
+  res.send('Successful POST request registering new user');
 });
 
 // Post a new movie to the "list of favourites movie" of a user
-app.post('/users/:user/movies/:moviesID', (req, res) => {
-  res.send('Successful POST request adding the movie: ' + req.params.name + ' in "Favourite List" of ' + req.params.user);
+app.post('/users/:User/movies/:Title', (req, res) => {
+  res.send('Successful POST request adding the movie: ' + req.params.title + ' in "Favourite List" of ' + req.params.user);
 });
 
 // PUT requests
 // Update the Info of a user, by userName
-app.put('/users/:user', (req, res) => {
+app.put('/users/:User', (req, res) => {
   res.send('Successful PUT request updating information for the user: ' + req.params.user);
 });
 
 // DELETE requests
 // Deregister a user from the database, by name
-app.delete('/users/:user', (req, res) => {
-  res.send('Successful DELETE request removed the user: ' + req.params.user);
+app.delete('/users/:User', (req, res) => {
+  res.send('Successful DELETE request removed the user: ' + req.params.user + ' from the database');
 });
 
 // Deletes a movie from the "Favourite List", by name
-app.delete('/users/:user/movies/:name', (req, res) => {
-  res.send('Successful DELETE request removed movie from the Favourite List of the user: ' + req.params.user);
+app.delete('/users/:User/movies/:Title', (req, res) => {
+  res.send('Successful DELETE request removed movie from the "Favourite List" of the user: ' + req.params.user);
 });
 
 // listen for requests
