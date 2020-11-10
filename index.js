@@ -105,17 +105,17 @@ app.get('/movies', (req, res) => {
 });
 
 // Get the data about a single movie, by title
-app.get('/movies/:Title', (req, res) => {
+app.get('/movies/:title', (req, res) => {
   res.send('Successful GET request returning data on movie title: ' + req.params.title);
 });
 
 // Get the data about genres, by genre
-app.get('/movies/genres/:Genre', (req, res) => {
+app.get('/movies/genres/:genre', (req, res) => {
   res.send('Successful GET request returning data on movie genre: ' + req.params.genre);
 });
 
 // Get the data about a director, by name
-app.get('/movies/directors/:Director', (req, res) => {
+app.get('/movies/directors/:name', (req, res) => {
   res.send('Successful GET request returning data on director: ' + req.params.name);
 });
 
@@ -127,29 +127,39 @@ app.get('/users', (req, res) => {
 // POST requests
 // Allow new users to register
 app.post('/users', (req, res) => {
+  // let newUser = req.body;
+  //
+  // if (!newUser.user) {
+  //   const message = 'Missing "name" in request body';
+  //   res.status(400).send(message);
+  // } else {
+  //   newUser.id = uuid.v4();
+  //   users.push(newUser);
+  //   res.status(201).send(newUser);
+  // }
   res.send('Successful POST request registering new user');
 });
 
 // Post a new movie to the "list of favourites movie" of a user
-app.post('/users/:User/movies/:Title', (req, res) => {
+app.post('/users/:user/movies/:title', (req, res) => {
   res.send('Successful POST request adding the movie: ' + req.params.title + ' in "Favourite List" of ' + req.params.user);
 });
 
 // PUT requests
 // Update the Info of a user, by userName
-app.put('/users/:User', (req, res) => {
+app.put('/users/:user', (req, res) => {
   res.send('Successful PUT request updating information for the user: ' + req.params.user);
 });
 
 // DELETE requests
 // Deregister a user from the database, by name
-app.delete('/users/:User', (req, res) => {
-  res.send('Successful DELETE request removed the user: ' + req.params.user + ' from the database');
+app.delete('/users/:user', (req, res) => {
+  res.send('Successful DELETE request removed the user: ' + req.params.user);
 });
 
 // Deletes a movie from the "Favourite List", by name
-app.delete('/users/:User/movies/:Title', (req, res) => {
-  res.send('Successful DELETE request removed movie from the "Favourite List" of the user: ' + req.params.user);
+app.delete('/users/:user/movies/:title', (req, res) => {
+  res.send('Successful DELETE request removed movie from the Favourite List of the user: ' + req.params.user);
 });
 
 // listen for requests
