@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
@@ -29,89 +28,201 @@
         <th>Response Example</th>
       </tr>
       <tr>
-        <td>Get a list of all movies</td>
+        <td>1. Get a list of data about the All movies</td>
         <td>/movies</td>
         <td>GET</td>
         <td>None</td>
         <td>/movies</td>
-        <td>JSON
-        <td>{<br>"Genre" : { <br>"Name" : "Crime Fiction",<br>"Description" : "Crime fiction is the genre of fiction that deals with crimes, their detection, criminals, and their motives."<br>},<br><br>"Director" : {<br>"Name" : "Kip Andersen",<br>"Bio" : "Martin Charles Scorsese is an American film director, producer, screenwriter, and actor",<br>"Birth" : "1942",<br>"Death" : "-"<br>},<br><br>"_id" : "5b6c88930",<br><br>"Title" : "Terra",<br><br>
-          "Description" : "A tale of greed, deception, money, power, and murder occur between two best friends: a mafia enforcer and a casino executive, compete against each other over a gambling empire, and over a fast living and fast loving socialite.",<br><br>
-          "ImagePath" : "Terra.png",<br><br>"Featured" : true<br>}</td>
+        <td>JSON</td>
+        <td>
+          {
+          <br>"ID": "1A",
+          <br>"Title": "Cowspiracy" ,
+          <br>"Director" : "Kip Andersen",
+          <br>"Genre" : "Documentary",
+          <br>"Description" : "The Sustainability Secret is a groundbreaking feature-length environmental documentary following intrepid filmmaker Kip Andersen as he uncovers the most destructive industry facing the planet today – and investigates why the world's leading environmental organizations are too afraid to talk about it.",
+          <br>"ImagePath" : "Cowspiracy.png",
+          <br>"Featured" : false
+          <br>},
+          <br>{
+          <br>"ID": "1B",
+          <br>"Title": "Terra" ,
+          <br>"Director" : "Michael Pitiot",
+          <br>"Genre" : "Documentary",
+          <br>"Description" : "Terra is a thought provoking and visually stunning documentary about Earth. It is "an ode to humanity" and a spectacular portrayal of the beauty of life. It also brings to light the struggles that we face as we stray further and further from the natural.",
+          <br>"ImagePath" : "Terra.png",
+          <br>"Featured" : true
+          <br>}
+        </td>
       </tr>
       <tr>
-        <td>Get information about one specific movie by title; use %20 for spaces</td>
+        <td>
+          2. Get the data about a single movie, by title;
+          <br>You have to use " %20 " for spaces.
+        </td>
         <td>/movies/:Title</td>
         <td>GET</td>
         <td>None</td>
-        <td>/movies/Terra
+        <td>/movies/Icarus
         <td>JSON</td>
-        <td>{<br>"Genre" : { <br>"Name" : "Crime Fiction",<br>"Description" : "Crime fiction is the genre of fiction that deals with crimes, their detection, criminals, and their motives."<br>},<br><br>"Director" : {<br>"Name" : "Martin Scorsese",<br>"Bio" : "Martin Charles Scorsese is an American film director, producer, screenwriter, and actor",<br>"Birth" : "1942",<br>"Death" : "-"<br>},<br><br>"_id" : "5b6c88930",<br><br>"Title" : "Casino",<br><br>
-          "Description" : "A tale of greed, deception, money, power, and murder occur between two best friends: a mafia enforcer and a casino executive, compete against each other over a gambling empire, and over a fast living and fast loving socialite.",<br><br>
-          "ImagePath" : "casino.png",<br><br>"Featured" : true<br>}</td>
-      <tr>
-        <td>Return data about genre of a movie by its title, use %20 for spaces</td>
-        <td>/movies/genres/:Title</td>
-        <td>GET</td>
-        <td>None</td>
-        <td>/movies/genres/Terra</td>
-        <td>JSON</td>
-        <td>{<br>"Genre": "Crime Fiction",<br>"Description": "Crime fiction is the genre of fiction that deals with crimes, their detection, criminals, and their motives."<br>}</td>
+        <td>
+          {
+          <br>"ID": "1C",
+          <br>"Title": "Icarus"
+          <br>"Director" : "Bryan Fogel"
+          <br>"Genre" : "Documentary"
+          <br>"Description" : "Icarus is a 2017 American documentary film by Bryan Fogel, which chronicles Fogel's exploration of the option of doping to win an amateur cycling race and happening upon a major international doping scandal when he asks for the help of Grigory Rodchenkov, the head of the Russian anti-doping laboratory."
+          <br>"ImagePath" : "Icarus.png"
+          <br>"Featured" : false
+          <br>}
+        </td>
       </tr>
       <tr>
-        <td>Return data about a director by name; use %20 for spaces</td>
-        <td>/movies/Directors/:Name</td>
+        <td>
+          3. Get the data about movies, by genre;
+          <br>You have to use " %20 " for spaces.
+        </td>
+        <td>/movies/genres/:Genre</td>
         <td>GET</td>
         <td>None</td>
-        <td>/movies/Directors/Martin%Scorsese</td>
+        <td>/movies/genres/Documentary</td>
         <td>JSON</td>
-        <td>{<br>"Name": "Kip Andersen.",<br>"Bio": "Martin Charles Scorsese is an American film director, producer, screenwriter, and actor.",<br>"Birth": "1942.",<br>"Death": "-"<br>}</td>
+        <td>
+          {
+          <br>"ID": "1A",
+          <br>"Title": "Cowspiracy" ,
+          <br>"Director" : "Kip Andersen",
+          <br>"Genre" : "Documentary",
+          <br>"Description" : "The Sustainability Secret is a groundbreaking feature-length environmental documentary following intrepid filmmaker Kip Andersen as he uncovers the most destructive industry facing the planet today – and investigates why the world's leading environmental organizations are too afraid to talk about it.",
+          <br>"ImagePath" : "Cowspiracy.png",
+          <br>"Featured" : false
+          <br>},
+          <br>{
+          <br>"ID": "1D",
+          <br>"Title": "Our Planet" ,
+          <br>"Director" : "Alastair Fothergill",
+          <br>"Genre" : "Documentary",
+          <br>"Description" : "Documentary series focusing on the breadth of the diversity of habitats around the world, from the remote Arctic wilderness and mysterious deep oceans to the vast landscapes of Africa and diverse jungles of South America.",
+          <br>"ImagePath" : "Our Planeth.png",
+          <br>"Featured" : false
+          <br>}
+        </td>
       </tr>
       <tr>
-        <td>Allow new users to register</td>
+        <td>
+          4. Get the movies data about a specific director, by director's name;
+          <br>You have to use " %20 " for spaces.
+        </td>
+        <td>/movies/directors/:Director</td>
+        <td>GET</td>
+        <td>None</td>
+        <td>/movies/Directors/Kip%Andersen</td>
+        <td>JSON</td>
+        <td>
+          {
+          <br>"ID": "1A",
+          <br>"Title": "Cowspiracy" ,
+          <br>"Director" : "Kip Andersen",
+          <br>"Genre" : "Documentary",
+          <br>"Description" : "The Sustainability Secret is a groundbreaking feature-length environmental documentary following intrepid filmmaker Kip Andersen as he uncovers the most destructive industry facing the planet today – and investigates why the world's leading environmental organizations are too afraid to talk about it.",
+          <br>"ImagePath" : "Cowspiracy.png",
+          <br>"Featured" : false
+          <br>},
+          <br>{
+          <br>"ID": "1E",
+          <br>"Title": "What the health" ,
+          <br>"Director" : "Kip Andersen",
+          <br>"Genre" : "Documentary",
+          <br>"Description" : "What the Health is a 2017 documentary film which critiques the health impact of meat, fish, eggs and dairy products consumption, and questions the practices of leading health and pharmaceutical organizations. Its primary purpose is to advocate for a plant-based diet.",
+          <br>"ImagePath" : "What_the_health.png",
+          <br>"Featured" : false
+          <br>}
+        </td>
+      </tr>
+      <tr>
+        <td>5. Allow new users to register</td>
         <td>/users</td>
         <td>POST</td>
         <td>JSON</td>
-        <td>{<br>"user": "serch23",<br> "password": "lonely",<br>"email": "serch23@gmail.com",<br>"birthdate": "'23/11/1989'",<br>"__v": 0<br>}</td>
-        <td>{<br>"FavoriteMovies": [ ],<br>"_id": "5f85b4f19cf40f02a8c1e74c",<br>"user": "serch23",<br> "password": "lonely",<br>"email": "serch23@gmail.com",<br>"birthdate": "'23/11/1989'",<br>"__v": 0<br>}</td>
+        <td>
+          {
+          <br>"User": "serch23",
+          <br>"Password": "lonely",
+          <br>"Email": "serch23@gmail.com",
+          <br>"Birthdate": "23/11/1989"
+          <br>}
+        </td>
+        <td>JSON</td>
+        <td>
+          {
+          <br>"User": "serch23",
+          <br>"Password": "lonely",
+          <br>"Email": "serch23@gmail.com",
+          <br>"Birthdate": "1989-11-23T02:00:00.000Z"
+          <br>}
+        </td>
       </tr>
       <tr>
-        <td>Allow users to update their user information</td>
-        <td>/users/:Username</td>
+        <td>6. Allow users to update their user information</td>
+        <td>/users/:User</td>
         <td>PUT</td>
         <td>JSON</td>
-        <td>{<br>"user": "serch23",<br> "password": "lonely",<br>"email": "serch23@gmail.com",<br>"birthdate": "'23/11/1989'",<br>"__v": 0<br>}</td>
+        <td>
+          {
+          <br>"User": "serch23",
+          <br>"Password": "together",
+          <br>"Email": "serch23@gmail.com",
+          <br>"Birthdate": "23/11/1989"
+          <br>}
+        </td>
         <td>JSON</td>
-        <td>{<br>"FavoriteMovies": [ ],<br>"_id": "5f85b4f19cf40f02a8c1e74c",<br>"user": "serch23",<br> "password": "lonely",<br>"email": "serch23@gmail.com",<br>"birthdate": "'23/11/1989'",<br>"__v": 0<br>}</td>
+        <td>
+          {
+          <br>"User": "serch23",
+          <br>"Password": "together",
+          <br>"Email": "serch23@gmail.com",
+          <br>"Birthdate": "1989-11-23T02:00:00.000Z"
+          <br>}
+        </td>
       </tr>
       <tr>
-        <td>Allow users to add a movie to their list of favorites</td>
-        <td>/users/:Username/Movies/:MovieID</td>
+        <td>7. Allows users to add a movie inside of their "list of favourites movie"</td>
+        <td>/users/:User/movies/:Title</td>
         <td>POST</td>
         <td>None</td>
-        <td>/users/gregvincent/Movies/5f8053202ba736251567996b</td>
+        <td>/users/serch23/movies/Terra</td>
         <td>JSON</td>
-        <td>{<br>    "FavoriteList": [<br>"5f8053202ba736251567996b"<br>],<br>"_id": "5f85b4f19cf40f02a8c1e74c",<br>"user": "serch23",<br> "password": "lonely",<br>"email": "serch23@gmail.com",<br>"birthdate": "'23/11/1989'",<br>"__v": 0<br>}</td>
+        <td>
+          {
+          <br>"Favorite List": "Terra",
+          <br>"Id": "1B",
+          <br>"User": "serch23",
+          <br>"Password": "together",
+          <br>"Email": "serch23@gmail.com",
+          <br>"Birthdate": "1989-11-23T02:00:00.000Z"
+        </td>
       </tr>
       <tr>
-        <td>Allow users to remove a movie from their list of favorites</td>
-        <td>/users/:user/movies/:title</td>
+        <td>8. Allow users to Deletes a movie from the "Favourite List", by name</td>
+        <td>/users/:User/movies/:Title</td>
         <td>DELETE</td>
         <td>None</td>
         <td>/users/serch23/movies/Terra</td>
-        <td>JSON
-        <td>{<br>"FavoriteList": [ ],<br>"_id": "5f85b4f19cf40f02a8c1e74c",<br>"user": "serch23",<br> "password": "lonely",<br>"email": "serch23@gmail.com",<br>"birthdate": "'23/11/1989'",<br>"__v": 0<br>}</td>
+        <td>Message</td>
+        <td>"Successful DELETE request removed movie from the "Favourite List" of the user: serch23"</td>
       </tr>
       <tr>
-        <td>Allow existing users to deregister</td>
-        <td>/users/:user</td>
+        <td>9. Allow existing users to deregister</td>
+        <td>/users/:User</td>
         <td>DELETE</td>
         <td>None</td>
         <td>/users/serch23</td>
         <td>Message</td>
-        <td>"serch23 was successfully deregistered from myFlix."</td>
+        <td>"Successful DELETE request removed the user serch23 from the database"</td>
       </tr>
     </table>
   </section>
-</body>
+
+  </body>
+
 </html>
