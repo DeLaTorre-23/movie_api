@@ -18,73 +18,102 @@ app.use((err, req, res, next) => {
 
 let movies = [
   {
+    Id: '',
     Title: 'Enron, the smartest guys in the room',
     Director: 'Alex Gibney',
     Genre: 'Documentary',
-    Description: ''
+    Description: ' It tells the story of how Enron rose to become the seventh largest corporation in America with what was essentially a Ponzi scheme, and in its last days looted the retirement funds of its employees to buy a little more time.',
+    ImagePath: '',
+    Featured: false
   },
   {
+    Id: '',
     Title: 'Bowling for Columbine',
     Director: 'Michael Moore',
     Genre: 'Documentary',
-    Description: ''
+    Description: 'It is a film American documentary written, directed and narrated by Michael Moore explores what suggests manager are the main causes of the slaughter at Columbine in 1999 and other acts of violence with firearms in the United States.',
+    ImagePath: '',
+    Featured: false
   },
   {
+    Id: '',
     Title: 'Food, Inc',
     Director: 'Robert Kenner',
     Genre: 'Documentary',
-    Description: ''
+    Description: 'The film examines corporate farming in the United States, concluding that agribusiness produces food that is unhealthy, in a way that is environmentally harmful and abusive of both animals and employees.',
+    ImagePath: '',
+    Featured: false
   },
   {
     Title: 'Inside Job',
     Director: 'Charles Ferguson',
     Genre: 'Documentary',
-    Description: ''
+    Description: 'Inside Job is a 2010 American documentary film about the late-2000s financial crisis. The film is about "the systemic corruption of the United States by the financial services industry and the consequences of that systemic corruption".',
+    ImagePath: '',
+    Featured: false
   },
   {
+    Id: '',
     Title: 'Citizenfour',
     Director: 'Laura Poitras',
     Genre: 'Documentary',
-    Description: ''
+    Description: 'Citizenfour is a 2014 documentary film directed by Laura Poitras, concerning Edward Snowden and the NSA spying scandal.',
+    ImagePath: '',
+    Featured: false
   },
   {
+    Id: '',
     Title: 'Cowspiracy',
     Director: 'Kip Andersen',
     Genre: 'Documentary',
-    Description: ''
+    Description: 'The Sustainability Secret is a groundbreaking feature-length environmental documentary following intrepid filmmaker Kip Andersen as he uncovers the most destructive industry facing the planet today – and investigates why the world\'s leading environmental organizations are too afraid to talk about it.',
+    ImagePath: '',
+    Featured: false
   },
   {
-    Title: 'Ícaro',
+    Id: '',
+    Title: 'Icarus',
     Director: 'Bryan Fogel',
     Genre: 'Documentary',
-    Description: ''
+    Description: 'Icarus is a 2017 American documentary film by Bryan Fogel, which chronicles Fogel\'s exploration of the option of doping to win an amateur cycling race and happening upon a major international doping scandal when he asks for the help of Grigory Rodchenkov, the head of the Russian anti-doping laboratory.',
+    ImagePath: '',
+    Featured: false
   },
   {
+    Id: '',
     Title: 'Our Planet',
     Director: 'Alastair Fothergill',
     Genre: 'Documentary',
-    Description: ''
+    Description: 'Documentary series focusing on the breadth of the diversity of habitats around the world, from the remote Arctic wilderness and mysterious deep oceans to the vast landscapes of Africa and diverse jungles of South America.',
+    ImagePath: '',
+    Featured: false
   },
   {
+    Id: '',
     Title: 'Terra',
     Director: 'Michael Pitiot',
     Genre: 'Documentary',
-    Description: ''
+    Description: 'Terra is a thought provoking and visually stunning documentary about Earth. It is "an ode to humanity" and a spectacular portrayal of the beauty of life. It also brings to light the struggles that we face as we stray further and further from the natural.',
+    ImagePath: '',
+    Featured: true
   },
   {
+    Id: '',
     Title: 'What the health',
     Director: 'Kip Andersen',
     Genre: 'Documentary',
-    Description: ''
+    Description: 'What the Health is a 2017 documentary film which critiques the health impact of meat, fish, eggs and dairy products consumption, and questions the practices of leading health and pharmaceutical organizations. Its primary purpose is to advocate for a plant-based diet.',
+    ImagePath: '',
+    Featured: false
   }
 ];
 
 let users = [
   {
-    User: 'serch23',
-    Password: 'lonely',
-    Email: 'serch23@gmail.com',
-    Birthdate: '23/11/1989'
+    user: 'serch23',
+    password: 'lonely',
+    email: 'serch23@gmail.com',
+    birthdate: '23/11/1989'
   }
 ];
 
@@ -115,8 +144,8 @@ app.get('/movies/genres/:genre', (req, res) => {
 });
 
 // Get the data about a director, by name
-app.get('/movies/directors/:name', (req, res) => {
-  res.send('Successful GET request returning data on director: ' + req.params.name);
+app.get('/movies/directors/:director', (req, res) => {
+  res.send('Successful GET request returning data on director: ' + req.params.director);
 });
 
 //Get a list of data about the All movies
@@ -127,17 +156,16 @@ app.get('/users', (req, res) => {
 // POST requests
 // Allow new users to register
 app.post('/users', (req, res) => {
-  // let newUser = req.body;
-  //
-  // if (!newUser.user) {
-  //   const message = 'Missing "name" in request body';
-  //   res.status(400).send(message);
-  // } else {
-  //   newUser.id = uuid.v4();
-  //   users.push(newUser);
-  //   res.status(201).send(newUser);
-  // }
-  res.send('Successful POST request registering new user');
+  let newUser = req.body;
+
+  if (!newUser.user) {
+    const message = 'Missing "name" in request body';
+    res.status(400).send(message);
+  } else {
+    newUser.id = uuid.v4();
+    users.push(newUser);
+    res.status(201).send(newUser);
+  };
 });
 
 // Post a new movie to the "list of favourites movie" of a user
@@ -154,12 +182,12 @@ app.put('/users/:user', (req, res) => {
 // DELETE requests
 // Deregister a user from the database, by name
 app.delete('/users/:user', (req, res) => {
-  res.send('Successful DELETE request removed the user: ' + req.params.user);
+  res.send('Successful DELETE request removed the user ' + req.params.user + ' from the database');
 });
 
 // Deletes a movie from the "Favourite List", by name
 app.delete('/users/:user/movies/:title', (req, res) => {
-  res.send('Successful DELETE request removed movie from the Favourite List of the user: ' + req.params.user);
+  res.send('Successful DELETE request removed movie from the "Favourite List" of the user: ' + req.params.user);
 });
 
 // listen for requests
