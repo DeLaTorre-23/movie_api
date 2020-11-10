@@ -60,7 +60,7 @@
           2. Get the data about a single movie, by title;
           <br>You have to use " %20 " for spaces.
         </td>
-        <td>/movies/:Title</td>
+        <td>/movies/:title</td>
         <td>GET</td>
         <td>None</td>
         <td>/movies/Icarus
@@ -82,7 +82,7 @@
           3. Get the data about movies, by genre;
           <br>You have to use " %20 " for spaces.
         </td>
-        <td>/movies/genres/:Genre</td>
+        <td>/movies/genres/:genre</td>
         <td>GET</td>
         <td>None</td>
         <td>/movies/genres/Documentary</td>
@@ -113,7 +113,7 @@
           4. Get the movies data about a specific director, by director's name;
           <br>You have to use " %20 " for spaces.
         </td>
-        <td>/movies/directors/:Director</td>
+        <td>/movies/directors/:director</td>
         <td>GET</td>
         <td>None</td>
         <td>/movies/Directors/Kip%Andersen</td>
@@ -146,48 +146,49 @@
         <td>JSON</td>
         <td>
           {
-          <br>"User": "serch23",
-          <br>"Password": "lonely",
-          <br>"Email": "serch23@gmail.com",
-          <br>"Birthdate": "23/11/1989"
+          <br>"user": "serch23",
+          <br>"password": "lonely",
+          <br>"email": "serch23@gmail.com",
+          <br>"birthdate": "23/11/1989"
           <br>}
         </td>
         <td>JSON</td>
         <td>
           {
-          <br>"User": "serch23",
-          <br>"Password": "lonely",
-          <br>"Email": "serch23@gmail.com",
-          <br>"Birthdate": "1989-11-23T02:00:00.000Z"
+          <br>"user": "serch23",
+          <br>"password": "lonely",
+          <br>"email": "serch23@gmail.com",
+          <br>"birthdate": "23/11/1989",
+          <br>"id": "96c7e109-5dc3-44c1-b4b8-58d056cca6c0"
           <br>}
         </td>
       </tr>
       <tr>
         <td>6. Allow users to update their user information</td>
-        <td>/users/:User</td>
+        <td>/users/:user</td>
         <td>PUT</td>
         <td>JSON</td>
         <td>
           {
-          <br>"User": "serch23",
-          <br>"Password": "together",
-          <br>"Email": "serch23@gmail.com",
-          <br>"Birthdate": "23/11/1989"
+          <br>"user": "serch23",
+          <br>"password": "together",
+          <br>"email": "serch23@gmail.com",
+          <br>"birthdate": "23/11/1989"
           <br>}
         </td>
         <td>JSON</td>
         <td>
           {
-          <br>"User": "serch23",
-          <br>"Password": "together",
-          <br>"Email": "serch23@gmail.com",
-          <br>"Birthdate": "1989-11-23T02:00:00.000Z"
+          <br>"user": "serch23",
+          <br>"password": "together",
+          <br>"email": "serch23@gmail.com",
+          <br>"birthdate": "1989-11-23T02:00:00.000Z"
           <br>}
         </td>
       </tr>
       <tr>
         <td>7. Allows users to add a movie inside of their "list of favourites movie"</td>
-        <td>/users/:User/movies/:Title</td>
+        <td>/users/:user/movies/:title</td>
         <td>POST</td>
         <td>None</td>
         <td>/users/serch23/movies/Terra</td>
@@ -204,7 +205,7 @@
       </tr>
       <tr>
         <td>8. Allow users to Deletes a movie from the "Favourite List", by name</td>
-        <td>/users/:User/movies/:Title</td>
+        <td>/users/:user/movies/:title</td>
         <td>DELETE</td>
         <td>None</td>
         <td>/users/serch23/movies/Terra</td>
@@ -213,9 +214,9 @@
       </tr>
         <tr>
           <td>9. Allow existing users to deregister</td>
-          <td>/users/:User</td>
+          <td>/users/:user</td>
           <td>DELETE</td>
-          <td>None</td>
+          <td>None</td>user
           <td>/users/serch23</td>
           <td>Message</td>
           <td>"Successful DELETE request removed the user serch23 from the database"</td>
