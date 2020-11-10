@@ -111,15 +111,14 @@
         <td>/movies/directors/:director</td>
         <td>GET</td>
         <td>None</td>
-        <td>/movies/Directors/Kip%Andersen</td>
+        <td>/movies/Directors/Kip%20Andersen</td>
         <td>JSON</td>
         <td>
           {
-          <br>"Title": "Cowspiracy" ,
-          <br>"Director" : "Kip Andersen",
-          <br>"Genre" : "Documentary",
-          <br>"Description" : "The Sustainability Secret is a groundbreaking feature-length environmental documentary following intrepid filmmaker Kip Andersen as he uncovers the most destructive industry facing the planet today – and investigates why the world's leading environmental organizations are too afraid to talk about it.",
-          <br>"ImagePath" : "Cowspiracy.png",
+          <br>"Director" : "Michael Francis Moore",
+          <br>"Birth" : "23/04/1954",
+          <br>"Death" : "The Sustainability Secret is a groundbreaking feature-length environmental documentary following intrepid filmmaker Kip Andersen as he uncovers the most destructive industry facing the planet today – and investigates why the world's leading environmental organizations are too afraid to talk about it.",
+          <br>"Bio" : "Cowspiracy.png",
           <br>"Featured" : false
           <br>},
           <br>{
@@ -205,18 +204,16 @@
         <td>Message</td>
         <td>"Successful DELETE request removed movie from the "Favourite List" of the user: serch23"</td>
       </tr>
-        <tr>
-          <td>9. Allow existing users to deregister</td>
-          <td>/users/:user</td>
-          <td>DELETE</td>
-          <td>None</td>user
-          <td>/users/serch23</td>
-          <td>Message</td>
-          <td>"Successful DELETE request removed the user serch23 from the database"</td>
-        </tr>
-      </table>
-    </section>
-
-  </body>
-
-  </html>
+      <tr>
+        <td>9. Allow existing users to deregister</td>
+        <td>/users/:user</td>
+        <td>DELETE</td>
+        <td>None</td>user
+        <td>/users/serch23</td>
+        <td>Message</td>
+        <td>"Successful DELETE request removed the user serch23 from the database"</td>
+      </tr>
+    </table>
+  </section>
+</body>
+</html>
