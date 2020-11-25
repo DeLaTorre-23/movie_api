@@ -5,6 +5,14 @@ const express = require('express'),
 
 const app = express();
 
+const mongoose = require('mongoose');
+const Models = require('./models/models.js');
+
+const Documentaries = Models.Documentary;
+const Users = Models.User;
+
+mongoose.connect('mongodb://localhost:27017/actualdoc', { useNewUrlParser: true, useUnifiedTopology: true });
+
 // Middleware function
 app.use(bodyParser.json());
 app.use(morgan('common'));
@@ -49,7 +57,7 @@ app.get('/documentaries/directors/:director', (req, res) => {
 
 //Get a list of data about the All documentaries
 app.get('/users', (req, res) => {
-  res.json(users);
+  users.find().then(users => res.json(users));
 });
 
 // POST requests

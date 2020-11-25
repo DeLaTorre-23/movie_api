@@ -26,7 +26,7 @@ let userSchema = mongoose.Schema({
   FavoriteList: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Documentary' }]
 });
 
-let Documentary = mongoose.model('Documentary', movieSchema);
+let Documentary = mongoose.model('Documentary', documentarySchema);
 let User = mongoose.model('User', userSchema);
 
 module.exports.Documentary = Documentary;
