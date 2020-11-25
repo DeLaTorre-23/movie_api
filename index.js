@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 const app = express();
 
 //Integrate Mongoose into the REST API
-const Models = require('models/models.js');
+const Models = require('./models/models');
 
 //Allow to export the Models
 const Documentaries = Models.Documentary;
