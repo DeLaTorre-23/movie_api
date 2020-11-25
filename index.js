@@ -37,7 +37,7 @@ app.get('/documentation', (req, res) => {
 
 //Get a list of data about the All documentaries
 app.get('/documentaries', (req, res) => {
-  res.json(movies);
+  res.json(documentaries);
 });
 
 // Get the data about a single documentary, by title
@@ -55,24 +55,64 @@ app.get('/documentaries/directors/:director', (req, res) => {
   res.send('Successful GET request returning data on director: ' + req.params.director);
 });
 
-//Get a list of data about the All documentaries
+//Get a list of data about the All users
 app.get('/users', (req, res) => {
-  users.find().then(users => res.json(users));
+  users.find()
+    .then(users =>  {
+      res.status(201).json(users);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
+
+//Get a users by username
+app.get('/users/:Username', (req, res) => {
+  Users.findOne({ Username: req.params.Username })
+    .then((user) =>  {
+      res.json(user);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
 });
 
 // POST requests
 // Allow new users to register
+/* We’ll expect JSON in this format
+{
+  ID: Integer,
+  Username: String,
+  Password: String,
+  Email: String,
+  Birthday: Date
+}*/
 app.post('/users', (req, res) => {
-  let newUser = req.body;
-
-  if (!newUser.user) {
-    const message = 'Missing "name" in request body';
-    res.status(400).send(message);
-  } else {
-    newUser.id = uuid.v4();
-    users.push(newUser);
-    res.status(201).send(newUser);
-  };
+  Users.findOne({ Username: req.body.Username })
+    .then((user) => {
+      if (user) {
+        return res.status(400).send(req.body.Username + 'already exists');
+      } else {
+        Users
+          .create({
+            Username: req.body.Username,
+            Password: req.body.Password,
+            Email: req.body.Email,
+            Birthday: req.body.Birthday
+          })
+          .then((user) =>{res.status(201).json(user) })
+        .catch((error) => {
+          console.error(error);
+          res.status(500).send('Error: ' + error);
+        })
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send('Error: ' + error);
+    });
 });
 
 // Post a new movie to the "list of favourites movie" of a user
