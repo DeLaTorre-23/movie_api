@@ -12,115 +12,14 @@ app.use(express.static('public'));
 
 // Error-Handling middleware function that will log all application-level errors to th terminal
 app.use((err, req, res, next) => {
-  console.error(err.sstack);
+  console.error(err.stack);
   res.status(500).send('Something broke');
 });
-
-let movies = [
-  {
-    Id: '',
-    Title: 'Enron, the smartest guys in the room',
-    Director: 'Alex Gibney',
-    Genre: 'Documentary',
-    Description: ' It tells the story of how Enron rose to become the seventh largest corporation in America with what was essentially a Ponzi scheme, and in its last days looted the retirement funds of its employees to buy a little more time.',
-    ImagePath: '',
-    Featured: false
-  },
-  {
-    Id: '',
-    Title: 'Bowling for Columbine',
-    Director: 'Michael Moore',
-    Genre: 'Documentary',
-    Description: 'It is a film American documentary written, directed and narrated by Michael Moore explores what suggests manager are the main causes of the slaughter at Columbine in 1999 and other acts of violence with firearms in the United States.',
-    ImagePath: '',
-    Featured: false
-  },
-  {
-    Id: '',
-    Title: 'Food, Inc',
-    Director: 'Robert Kenner',
-    Genre: 'Documentary',
-    Description: 'The film examines corporate farming in the United States, concluding that agribusiness produces food that is unhealthy, in a way that is environmentally harmful and abusive of both animals and employees.',
-    ImagePath: '',
-    Featured: false
-  },
-  {
-    Title: 'Inside Job',
-    Director: 'Charles Ferguson',
-    Genre: 'Documentary',
-    Description: 'Inside Job is a 2010 American documentary film about the late-2000s financial crisis. The film is about "the systemic corruption of the United States by the financial services industry and the consequences of that systemic corruption".',
-    ImagePath: '',
-    Featured: false
-  },
-  {
-    Id: '',
-    Title: 'Citizenfour',
-    Director: 'Laura Poitras',
-    Genre: 'Documentary',
-    Description: 'Citizenfour is a 2014 documentary film directed by Laura Poitras, concerning Edward Snowden and the NSA spying scandal.',
-    ImagePath: '',
-    Featured: false
-  },
-  {
-    Id: '',
-    Title: 'Cowspiracy',
-    Director: 'Kip Andersen',
-    Genre: 'Documentary',
-    Description: 'The Sustainability Secret is a groundbreaking feature-length environmental documentary following intrepid filmmaker Kip Andersen as he uncovers the most destructive industry facing the planet today – and investigates why the world\'s leading environmental organizations are too afraid to talk about it.',
-    ImagePath: '',
-    Featured: false
-  },
-  {
-    Id: '',
-    Title: 'Icarus',
-    Director: 'Bryan Fogel',
-    Genre: 'Documentary',
-    Description: 'Icarus is a 2017 American documentary film by Bryan Fogel, which chronicles Fogel\'s exploration of the option of doping to win an amateur cycling race and happening upon a major international doping scandal when he asks for the help of Grigory Rodchenkov, the head of the Russian anti-doping laboratory.',
-    ImagePath: '',
-    Featured: false
-  },
-  {
-    Id: '',
-    Title: 'Our Planet',
-    Director: 'Alastair Fothergill',
-    Genre: 'Documentary',
-    Description: 'Documentary series focusing on the breadth of the diversity of habitats around the world, from the remote Arctic wilderness and mysterious deep oceans to the vast landscapes of Africa and diverse jungles of South America.',
-    ImagePath: '',
-    Featured: false
-  },
-  {
-    Id: '',
-    Title: 'Terra',
-    Director: 'Michael Pitiot',
-    Genre: 'Documentary',
-    Description: 'Terra is a thought provoking and visually stunning documentary about Earth. It is "an ode to humanity" and a spectacular portrayal of the beauty of life. It also brings to light the struggles that we face as we stray further and further from the natural.',
-    ImagePath: '',
-    Featured: true
-  },
-  {
-    Id: '',
-    Title: 'What the health',
-    Director: 'Kip Andersen',
-    Genre: 'Documentary',
-    Description: 'What the Health is a 2017 documentary film which critiques the health impact of meat, fish, eggs and dairy products consumption, and questions the practices of leading health and pharmaceutical organizations. Its primary purpose is to advocate for a plant-based diet.',
-    ImagePath: '',
-    Featured: false
-  }
-];
-
-let users = [
-  {
-    user: 'serch23',
-    password: 'lonely',
-    email: 'serch23@gmail.com',
-    birthdate: '23/11/1989'
-  }
-];
 
 // GET requests
 // Returns a default textual response
 app.get('/', (req, res) => {
-  res.send('Enjoy the thousands of movies on MyFlix!');
+  res.send('Enjoy the thousands of documentaries on DOCumentality!');
 });
 
 //Get the Documentation file
@@ -128,27 +27,27 @@ app.get('/documentation', (req, res) => {
   res.sendFile('public/documentation.html', { root: __dirname });
 });
 
-//Get a list of data about the All movies
-app.get('/movies', (req, res) => {
+//Get a list of data about the All documentaries
+app.get('/documentaries', (req, res) => {
   res.json(movies);
 });
 
-// Get the data about a single movie, by title
-app.get('/movies/:title', (req, res) => {
-  res.send('Successful GET request returning data on movie title: ' + req.params.title);
+// Get the data about a single documentary, by title
+app.get('/documentaries/:title', (req, res) => {
+  res.send('Successful GET request returning data on documentary title: ' + req.params.title);
 });
 
 // Get the data about genres, by genre
-app.get('/movies/genres/:genre', (req, res) => {
-  res.send('Successful GET request returning data on movie genre: ' + req.params.genre);
+app.get('/documentaries/genres/:genre', (req, res) => {
+  res.send('Successful GET request returning data on documentary genre: ' + req.params.genre);
 });
 
 // Get the data about a director, by name
-app.get('/movies/directors/:director', (req, res) => {
+app.get('/documentaries/directors/:director', (req, res) => {
   res.send('Successful GET request returning data on director: ' + req.params.director);
 });
 
-//Get a list of data about the All movies
+//Get a list of data about the All documentaries
 app.get('/users', (req, res) => {
   res.json(users);
 });
@@ -169,8 +68,8 @@ app.post('/users', (req, res) => {
 });
 
 // Post a new movie to the "list of favourites movie" of a user
-app.post('/users/:user/movies/:title', (req, res) => {
-  res.send('Successful POST request adding the movie: ' + req.params.title + ' in "Favourite List" of ' + req.params.user);
+app.post('/users/:user/documentaries/:title', (req, res) => {
+  res.send('Successful POST request adding the documentary: ' + req.params.title + ' in "Favourite List" of ' + req.params.user);
 });
 
 // PUT requests
@@ -186,8 +85,8 @@ app.delete('/users/:user', (req, res) => {
 });
 
 // Deletes a movie from the "Favourite List", by name
-app.delete('/users/:user/movies/:title', (req, res) => {
-  res.send('Successful DELETE request removed movie from the "Favourite List" of the user: ' + req.params.user);
+app.delete('/users/:user/documentaries/:title', (req, res) => {
+  res.send('Successful DELETE request removed documentary from the "Favourite List" of the user: ' + req.params.user);
 });
 
 // listen for requests
