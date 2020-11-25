@@ -2,18 +2,18 @@
 <html lang="en" dir="ltr">
 <head>
   <meta charset="utf-8">
-  <title>MyFLIX | Documentation</title>
+  <title>Documentality | Documentation</title>
 </head>
 <body>
   <header>
-    <h1>Documentation MyFLIX</h1>
+    <h1>Documentation of Documentality</h1>
   </header>
   <section>
     <p>
-      This is a REST API about "movies". The application interacts with a database that stores data about different movies.
+      This is a REST API about "current documentaries". The application interacts with a database that stores data about different documentaries.
     </p>
     <p>
-      Within "MyFlix", users will be able to create an account, register and access information about different films, directors and genres. Also, users can update their personal information and create a list of their favorite movies within their profile.
+      Within "Documentality", users will be able to create an account, register and access information about different films, directors and genres. Also, users can update their personal information and create a list of their favorite movies within their profile.
     </p>
   </section>
   <section>
@@ -28,23 +28,32 @@
         <th>Response Example</th>
       </tr>
       <tr>
-        <td>1. Get a list of data about the All movies</td>
-        <td>/movies</td>
+        <td>1. Get a list of data about the All documentaries</td>
+        <td>/documentaries</td>
         <td>GET</td>
         <td>None</td>
-        <td>/movies</td>
+        <td>/documentaries</td>
         <td>JSON</td>
         <td>
           {
-          <br>"Title": "Cowspiracy" ,
-          <br>"Director" : "Kip Andersen",
-          <br>"Genre" : "Documentary",
+          <br>"Title": "Cowspiracy",
           <br>"Description" : "The Sustainability Secret is a groundbreaking feature-length environmental documentary following intrepid filmmaker Kip Andersen as he uncovers the most destructive industry facing the planet today – and investigates why the world's leading environmental organizations are too afraid to talk about it.",
+          <br>"Genre" : {
+          <table>
+            <tr><td>"Name": "Performative"</td></tr>
+            <tr><td>"Description": "Performative documentaries are an experimental combination of styles used to stress subject experience and share an emotional response with the world. They often connect and juxtapose personal accounts with larger political or historical issues."</td></tr>
+          </table>
+          },
+          <table>
+            <tr><td>"Director": "Kip Andersen"</td></tr>
+            <tr><td>"Bio": "Kip Andersen is a producer and writer, known for Cowspiracy: The Sustainability Secret (2014), What the Health (2017) and Sea of Life (2017). Besides being a film maker, he is also an entrepreneur and a certified Jivamukti and Kundalini yoga teacher. He is the founder of AUM Films and Media, a non-profit firm focused on creating movies that promote compassion and harmony for all life."</td></tr>
+          </table>
+          <br>"Director" : "Kip Andersen",
           <br>"ImagePath" : "Cowspiracy.png",
           <br>"Featured" : false
           <br>},
           <br>{
-          <br>"Title": "Terra" ,
+          <br>"Title": "Earth" ,
           <br>"Director" : "Michael Pitiot",
           <br>"Genre" : "Documentary",
           <br>"Description" : "Terra is a thought provoking and visually stunning documentary about Earth. It is "an ode to humanity" and a spectacular portrayal of the beauty of life. It also brings to light the struggles that we face as we stray further and further from the natural.",

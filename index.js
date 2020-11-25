@@ -84,8 +84,8 @@ app.get('/users', (req, res) => {
 }*/
 app.post('/users', (req, res) => {
   Users.findOne({ Username: req.body.Username })
-  .then((User) => {
-    if (user) {
+  .then((Users) => {
+    if (users) {
       return res.status(400).send(req.body.Username + 'already exists');
     } else {
       Users
@@ -141,6 +141,6 @@ app.delete('/users/:user/documentaries/:title', (req, res) => {
 });
 
 // listen for requests
-app.listen(8080, () =>
+app.listen(8080, () => {
 console.log('Your app is listening on port 8080.')
-);
+})
