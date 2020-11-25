@@ -1,43 +1,32 @@
-const express = require('express'),
-  bodyParser = require('body-parser'),
-  uuid = require('uuid'),
-  morgan = require('morgan'),
-  mongoose = require('mongoose');
+const express = require('express');
+const bodyParser = require('body-parser');
+const uuid = require('uuid');
+const morgan = require('morgan');
+const mongoose = require('mongoose');
 
 const app = express();
 
 //Integrate Mongoose into the REST API
-const Models = require('./models/models.js');
+const Models = require('models/models.js');
 
 //Allow to export the Models
 const Documentaries = Models.Documentary;
 const Users = Models.User;
 
 //Connect Mongoose to the database
-mongoose.connect('mongodb://localhost:27017/actualDoc', { userNewParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://localhost:27017/actualdoc', { userNewParser: true, useUnifiedTopology: true });
 
 // Middleware function
 app.use(bodyParser.json());
 app.use(morgan('common'));
 app.use(express.static('public'));
 
-// Error-Handling middleware function that will log all application-level errors to th terminal
-app.use((err, req, res, next) => {
-  console.error(err.sstack);
-  res.status(500).send('Something broke');
-});
-
-
-
-
-
-
 
 
 // GET requests
 // Returns a default textual response
 app.get('/', (req, res) => {
-  res.send('Enjoy the thousands of movies on MyFlix!');
+  res.send('Enjoy the thousands of documentaries on DOCumentality!');
 });
 
 //Get the Documentation file
@@ -45,20 +34,20 @@ app.get('/documentation', (req, res) => {
   res.sendFile('public/documentation.html', { root: __dirname });
 });
 
-//Get a list of data about the All movies
+//Get a list of data about the All documentaries
 app.get('/documentaries', (req, res) => {
   Documentaries.find().then(users => res.json(users));
-  //res.json(documentaries);
+  // res.json(documentaries);
 });
 
-// Get the data about a single movie, by title
+// Get the data about a single documentary, by title
 app.get('/documentaries/:title', (req, res) => {
-  res.send('Successful GET request returning data on movie title: ' + req.params.title);
+  res.send('Successful GET request returning data on documentary title: ' + req.params.title);
 });
 
 // Get the data about genres, by genre
 app.get('/documentaries/genres/:genre', (req, res) => {
-  res.send('Successful GET request returning data on movie genre: ' + req.params.genre);
+  res.send('Successful GET request returning data on documentary genre: ' + req.params.genre);
 });
 
 // Get the data about a director, by name
@@ -66,14 +55,13 @@ app.get('/documentaries/directors/:director', (req, res) => {
   res.send('Successful GET request returning data on director: ' + req.params.director);
 });
 
-//Get a list of data about the All movies
+//Get a list of data about the All documentaries
 app.get('/users', (req, res) => {
   res.json(users);
 });
 
 // POST requests
-// Allow new users to register
-//Add a user
+// Allow new users to register, add a user
 /* We’ll expect JSON in this format
 {
   ID: Integer,
@@ -118,7 +106,7 @@ app.post('/users', (req, res) => {
   // };
 // });
 
-// Post a new movie to the "list of favourites movie" of a user
+// Post a new documentary to the "Favourite List" of a user
 app.post('/users/:user/documentaries/:title', (req, res) => {
   res.send('Successful POST request adding the documentary: ' + req.params.title + ' in "Favourite List" of ' + req.params.user);
 });
@@ -135,12 +123,18 @@ app.delete('/users/:user', (req, res) => {
   res.send('Successful DELETE request removed the user ' + req.params.user + ' from the database');
 });
 
-// Deletes a movie from the "Favourite List", by name
+// Deletes a documentary from the "Favourite List", by name
 app.delete('/users/:user/documentaries/:title', (req, res) => {
   res.send('Successful DELETE request removed documentary from the "Favourite List" of the user: ' + req.params.user);
 });
 
+// Error-Handling middleware function that will log all application-level errors to th terminal
+app.use((err, req, res, next) => {
+  console.error(err.sstack);
+  res.status(500).send('Something broke');
+});
+
 // listen for requests
-app.listen(8080, () => {
+app.listen(8080, () =>
 console.log('Your app is listening on port 8080.')
-})
+);
