@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 const app = express();
 
 //Integrate Mongoose into the REST API
-const Models = require('models/models.js');
+const Models = require('./models/models');
 
 //Allow to export the Models
 const Documentaries = Models.Documentary;
@@ -135,6 +135,6 @@ app.use((err, req, res, next) => {
 });
 
 // listen for requests
-app.listen(8080, () =>
-console.log('Your app is listening on port 8080.')
-)
+app.listen(8080, () => {
+  console.log('Your app is listening on port 8080.')
+})
