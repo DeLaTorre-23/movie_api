@@ -26,8 +26,25 @@ let userSchema = mongoose.Schema({
   FavoriteList: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Documentary' }]
 });
 
+let genreSchema = mongoose.Schema({
+  Name: {type: String, required: true},
+  Description: {type: String, required: true},
+});
+
+let directorSchema = mongoose.Schema({
+  Name: {type: String, required: true},
+  Bio: String,
+  DateOfBirth: Date,
+  DateOfDeath: Date
+});
+
+
 let Documentary = mongoose.model('Documentary', documentarySchema);
 let User = mongoose.model('User', userSchema);
+let Genre = mongoose.model('Genre', genreSchema);
+let Director = mongoose.model('Director', directorSchema);
 
 module.exports.Documentary = Documentary;
 module.exports.User = User;
+module.exports.Genre = Genre;
+module.exports.Director = Director;
