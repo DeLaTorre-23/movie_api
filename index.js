@@ -6,6 +6,8 @@ const  morgan = require('morgan');
 const app = express();
 const mongoose = require('mongoose');
 const Models = require('./models/models.js');
+const passport = require('passport');
+require('./passport');
 
 const Documentaries = Models.Documentary;
 const Users = Models.User;
@@ -24,6 +26,8 @@ app.use(bodyParser.json());
 app.use(morgan('common'));
 app.use(express.static('public'));
 
+//Import “auth.js” (Authentication Login) into the project
+let auth = require('./auth')(app);
 
 // GET requests
 // Returns a default text response when at /
@@ -37,7 +41,7 @@ app.get('/documentation', (req, res) => {
 });
 
 //Get a list of data about the All documentaries at /documentaries
-app.get('/documentaries', (req, res) => {
+app.get('/documentaries', passport.authenticate('jwt', { session: false }), (req, res) => {
   Documentaries.find()
     .then((documentaries) => {
       res.status(201).json(documentaries);
@@ -45,7 +49,7 @@ app.get('/documentaries', (req, res) => {
     .catch((err) => {
       console.error(err);
       res.status(500).send('Error: ' + err);
-    })
+    });
 });
 
 // Get the data about a single documentary, by title
