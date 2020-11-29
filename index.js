@@ -27,7 +27,7 @@ app.use(morgan('common'));
 app.use(express.static('public'));
 
 //Import “auth.js” (Authentication Login) into the project
-let auth = require('./auth')(app);
+let auth = require('./auth.js')(app);
 
 // GET requests
 // Returns a default text response when at /
