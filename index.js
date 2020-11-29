@@ -15,7 +15,7 @@ const Genres = Models.Genre;
 const Directors = Models.Director;
 
 mongoose.connect('mongodb://localhost:27017/actualdoc', {
-  useNewUrlParser: true,
+  useNewUrlParser: true, 
   useUnifiedTopology: true
 });
 
