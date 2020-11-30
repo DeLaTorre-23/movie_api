@@ -6,6 +6,8 @@ const  morgan = require('morgan');
 const app = express();
 const mongoose = require('mongoose');
 const Models = require('./models/models.js');
+
+//Import "passport.js” module into the project
 const passport = require('passport');
 require('./passport');
 
@@ -15,19 +17,19 @@ const Genres = Models.Genre;
 const Directors = Models.Director;
 
 mongoose.connect('mongodb://localhost:27017/actualdoc', {
-  useNewUrlParser: true, 
+  useNewUrlParser: true,
   useUnifiedTopology: true
 });
 
 // Middleware function
 app.use(bodyParser.json());
 
+//Import “auth.js” (Authentication Login) into the project
+let auth = require('./auth')(app);
+
 //log request to server
 app.use(morgan('common'));
 app.use(express.static('public'));
-
-//Import “auth.js” (Authentication Login) into the project
-let auth = require('./auth')(app);
 
 // GET requests
 // Returns a default text response when at /
