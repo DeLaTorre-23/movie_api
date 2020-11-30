@@ -2,18 +2,18 @@
 <html lang="en" dir="ltr">
 <head>
   <meta charset="utf-8">
-  <title>Documentality | Documentation</title>
+  <title>DOCumentality | Documentation</title>
 </head>
 <body>
   <header>
-    <h1>Documentation of Documentality</h1>
+    <h1>Documentation of DOCumentality</h1>
   </header>
   <section>
     <p>
-      This is a REST API about "current documentaries". The application interacts with a database that stores data about different documentaries.
+      This is a REST API about "documentaries". The application interacts with a database that stores data about different documentaries.
     </p>
     <p>
-      Within "Documentality", users will be able to create an account, register and access information about different films, directors and genres. Also, users can update their personal information and create a list of their favorite movies within their profile.
+      Within "DOCumentality", users will be able to create an account, register and access information about different films, directors and genres. Also, users can update their personal information and create a list of their favorite documentaries within their profile.
     </p>
   </section>
   <section>
@@ -64,13 +64,13 @@
       </tr>
       <tr>
         <td>
-          2. Get the data about a single movie, by title;
+          2. Get the data about a single documentary, by title;
           <br>You have to use " %20 " for spaces.
         </td>
-        <td>/movies/:title</td>
+        <td>/documentaries/:title</td>
         <td>GET</td>
         <td>None</td>
-        <td>/movies/Icarus
+        <td>/documentaries/Icarus
         <td>JSON</td>
         <td>
           {
@@ -85,13 +85,13 @@
       </tr>
       <tr>
         <td>
-          3. Get the data about movies, by genre;
+          3. Get the data about documentaries, by genre;
           <br>You have to use " %20 " for spaces.
         </td>
-        <td>/movies/genres/:genre</td>
+        <td>/documentaries/genres/:genre</td>
         <td>GET</td>
         <td>None</td>
-        <td>/movies/genres/Documentary</td>
+        <td>/documentaries/genres/Documentary</td>
         <td>JSON</td>
         <td>
           {
@@ -114,13 +114,13 @@
       </tr>
       <tr>
         <td>
-          4. Get the movies data about a specific director, by director's name;
+          4. Get the documentaries data about a specific director, by director's name;
           <br>You have to use " %20 " for spaces.
         </td>
-        <td>/movies/directors/:director</td>
+        <td>/documentaries/directors/:director</td>
         <td>GET</td>
         <td>None</td>
-        <td>/movies/Directors/Kip%20Andersen</td>
+        <td>/documentaries/Directors/Kip%Andersen</td>
         <td>JSON</td>
         <td>
           {
@@ -188,11 +188,11 @@
         </td>
       </tr>
       <tr>
-        <td>7. Allows users to add a movie inside of their "list of favourites movie"</td>
-        <td>/users/:user/movies/:title</td>
+        <td>7. Allows users to add a documentary inside of their "list of favourites documentaries"</td>
+        <td>/users/:user/documentaries/:title</td>
         <td>POST</td>
         <td>None</td>
-        <td>/users/serch23/movies/Terra</td>
+        <td>/users/serch23/documentaries/Terra</td>
         <td>JSON</td>
         <td>
           {
@@ -205,13 +205,13 @@
         </td>
       </tr>
       <tr>
-        <td>8. Allow users to Deletes a movie from the "Favourite List", by name</td>
-        <td>/users/:user/movies/:title</td>
+        <td>8. Allow users to Deletes a documentary from the "Favourite List", by name</td>
+        <td>/users/:user/documentaries/:title</td>
         <td>DELETE</td>
         <td>None</td>
-        <td>/users/serch23/movies/Terra</td>
+        <td>/users/serch23/documentaries/Terra</td>
         <td>Message</td>
-        <td>"Successful DELETE request removed movie from the "Favourite List" of the user: serch23"</td>
+        <td>"Successful DELETE request removed documentary from the "Favourite List" of the user: serch23"</td>
       </tr>
       <tr>
         <td>9. Allow existing users to deregister</td>
