@@ -2,15 +2,18 @@ const express = require('express'),
   bodyParser = require('body-parser'),
   uuid = require('uuid');
 
-const  morgan = require('morgan');
+const morgan = require('morgan');
 const app = express();
 const mongoose = require('mongoose');
+
+//Integrate Mongoose into the REST API
 const Models = require('./models/models.js');
 
 //Import "passport.js” module into the project
 const passport = require('passport');
 require('./passport');
 
+//Allow to export the Models
 const Documentaries = Models.Documentary;
 const Users = Models.User;
 const Genres = Models.Genre;
