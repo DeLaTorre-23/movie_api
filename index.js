@@ -5,12 +5,15 @@ const express = require('express'),
 const  morgan = require('morgan');
 const app = express();
 const mongoose = require('mongoose');
+
+//Integrate Mongoose into the REST API
 const Models = require('./models/models.js');
 
 //Import "passport.js” module into the project
 const passport = require('passport');
 require('./passport');
 
+//Allow to export the Models
 const Documentaries = Models.Documentary;
 const Users = Models.User;
 const Genres = Models.Genre;
@@ -20,16 +23,6 @@ mongoose.connect('mongodb://localhost:27017/actualdoc', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
-
-//Integrate Mongoose into the REST API
-const Models = require('./models/models');
-
-//Allow to export the Models
-const Documentaries = Models.Documentary;
-const Users = Models.User;
-
-//Connect Mongoose to the database
-mongoose.connect('mongodb://localhost:27017/actualdoc', { userNewParser: true, useUnifiedTopology: true });
 
 // Middleware function
 app.use(bodyParser.json());
