@@ -13,7 +13,7 @@
       This is a REST API about "documentaries". The application interacts with a database that stores data about different documentaries.
     </p>
     <p>
-      Within "DOCumentality", users will be able to create an account, register and access information about different films, directors and genres. Also, users can update their personal information and create a list of their favorite documentaries within their profile.
+      Within "DOCumentality", users will be able to create an account, register and access information about different documentaries, directors and genres. Also, users can update their personal information and create a list of their favorite documentaries within their profile.
     </p>
   </section>
   <section>
@@ -35,30 +35,22 @@
         <td>/documentaries</td>
         <td>JSON</td>
         <td>
-          {
-          <br>"Title": "Cowspiracy",
-          <br>"Description" : "The Sustainability Secret is a groundbreaking feature-length environmental documentary following intrepid filmmaker Kip Andersen as he uncovers the most destructive industry facing the planet today – and investigates why the world's leading environmental organizations are too afraid to talk about it.",
-          <br>"Genre" : {
-          <table>
-            <tr><td>"Name": "Performative"</td></tr>
-            <tr><td>"Description": "Performative documentaries are an experimental combination of styles used to stress subject experience and share an emotional response with the world. They often connect and juxtapose personal accounts with larger political or historical issues."</td></tr>
-          </table>
-          },
-          <table>
-            <tr><td>"Director": "Kip Andersen"</td></tr>
-            <tr><td>"Bio": "Kip Andersen is a producer and writer, known for Cowspiracy: The Sustainability Secret (2014), What the Health (2017) and Sea of Life (2017). Besides being a film maker, he is also an entrepreneur and a certified Jivamukti and Kundalini yoga teacher. He is the founder of AUM Films and Media, a non-profit firm focused on creating movies that promote compassion and harmony for all life."</td></tr>
-          </table>
-          <br>"Director" : "Kip Andersen",
-          <br>"ImagePath" : "Cowspiracy.png",
-          <br>"Featured" : false
-          <br>},
           <br>{
-          <br>"Title": "Earth" ,
-          <br>"Director" : "Michael Pitiot",
-          <br>"Genre" : "Documentary",
-          <br>"Description" : "Terra is a thought provoking and visually stunning documentary about Earth. It is "an ode to humanity" and a spectacular portrayal of the beauty of life. It also brings to light the struggles that we face as we stray further and further from the natural.",
-          <br>"ImagePath" : "Terra.png",
-          <br>"Featured" : true
+          <br>"Genre": {
+          <br>"Name": "Travel",
+          <br>"Description": "Travel documentary often has the primary goal of making spectators familiar with other cultures and geography. There also is a great significance of seeing and understanding how and what people think about their country and the ways that these people are interviewed."
+          <br>},
+          <br>"Director": {
+          <br>"Name": "Felix Starck",
+          <br>"Bio": "Felix Starck was born in Herxheim, Rhineland-Palatinate, Germany. He is a famous producer and director by Pedal the World (2015).",
+          <br>"Birth": "1990"
+          <br>},
+          <br>"Actors": [],
+          <br>"_id": "5fb55d233ebe51404e308e73",
+          <br>"Title": "Expedition Happiness",
+          <br>"Description": "Two free spirits, one dog. Traveling the vast spaces of an enormous continent in search of something more.",
+          <br>"ImagePath": "https://m.media-amazon.com/images/M/MV5BZDA0OTQ5NzAtNWU1NS00NTA0LTlkN2YtNTgyZGE4YzNiZWNjXkEyXkFqcGdeQXVyMjQ3NzUxOTM@._V1_FMjpg_UX1000_.jpg",
+          <br>"Featured": true
           <br>}
         </td>
       </tr>
@@ -67,77 +59,65 @@
           2. Get the data about a single documentary, by title;
           <br>You have to use " %20 " for spaces.
         </td>
-        <td>/documentaries/:title</td>
+        <td>/documentaries/:Title</td>
         <td>GET</td>
         <td>None</td>
-        <td>/documentaries/Icarus
+        <td>/documentaries/Earth
         <td>JSON</td>
         <td>
-          {
-          <br>"Title": "Icarus"
-          <br>"Director" : "Bryan Fogel"
-          <br>"Genre" : "Documentary"
-          <br>"Description" : "Icarus is a 2017 American documentary film by Bryan Fogel, which chronicles Fogel's exploration of the option of doping to win an amateur cycling race and happening upon a major international doping scandal when he asks for the help of Grigory Rodchenkov, the head of the Russian anti-doping laboratory."
-          <br>"ImagePath" : "Icarus.png"
-          <br>"Featured" : false
+          <br>{
+          <br>"Genre": {
+          <br>"Name": "Nature",
+          <br>"Description": "Nature documentary consists of, obviously, nature and animals, or other non-human creatures, usually (but not necessarily) in their natural habitat."
+          <br>},
+          <br>"Director": {
+          <br>"Name": "Alastair Fothergill",
+          <br>"Bio": "Alastair Fothergill was born on April 10, 1960 as Alastair David William Fothergill. He is a producer and director, known for Planeta Tierra (2006), Planeta azul (2001) and Planeta helado (2011).",
+          <br>"Birth": "1960"
+          <br>},
+          <br>"Actors": [],
+          <br>"_id": "5fb569733ebe51404e308e7b",
+          <br>"Title": "Earth",
+          <br>"Description": "A visually stunning documentary that reflects human's relationship to other species on Earth as humanity becomes more and more isolated from Nature.",
+          <br>"ImagePath": "https://m.media-amazon.com/images/M/MV5BYWUyNjI0M2ItZGJlNC00YmE2LTk3MTAtMWJhNGU3NzUyNGQ3XkEyXkFqcGdeQXVyMjc1NTg2NTI@._V1_FMjpg_UX1000_.jpg",
+          <br>"Featured": false
           <br>}
         </td>
       </tr>
       <tr>
         <td>
-          3. Get the data about documentaries, by genre;
+          3. Get the data about genres, by name;
           <br>You have to use " %20 " for spaces.
         </td>
-        <td>/documentaries/genres/:genre</td>
+        <td>/genres/:Name</td>
         <td>GET</td>
         <td>None</td>
-        <td>/documentaries/genres/Documentary</td>
+        <td>/genres/Nature</td>
         <td>JSON</td>
         <td>
-          {
-          <br>"Title": "Cowspiracy" ,
-          <br>"Director" : "Kip Andersen",
-          <br>"Genre" : "Documentary",
-          <br>"Description" : "The Sustainability Secret is a groundbreaking feature-length environmental documentary following intrepid filmmaker Kip Andersen as he uncovers the most destructive industry facing the planet today – and investigates why the world's leading environmental organizations are too afraid to talk about it.",
-          <br>"ImagePath" : "Cowspiracy.png",
-          <br>"Featured" : false
-          <br>},
           <br>{
-          <br>"Title": "Our Planet" ,
-          <br>"Director" : "Alastair Fothergill",
-          <br>"Genre" : "Documentary",
-          <br>"Description" : "Documentary series focusing on the breadth of the diversity of habitats around the world, from the remote Arctic wilderness and mysterious deep oceans to the vast landscapes of Africa and diverse jungles of South America.",
-          <br>"ImagePath" : "Our Planeth.png",
-          <br>"Featured" : false
+          <br>"_id": "5fb52cef3ebe51404e308e5e",
+          <br>"Name": "Nature",
+          <br>"Description": "Nature documentary consists of, obviously, nature and animals, or other non-human creatures, usually (but not necessarily) in their natural habitat."
           <br>}
         </td>
       </tr>
       <tr>
         <td>
-          4. Get the documentaries data about a specific director, by director's name;
+          4. Get the data about a specific director, by director's name;
           <br>You have to use " %20 " for spaces.
         </td>
-        <td>/documentaries/directors/:director</td>
+        <td>/directors/:Name</td>
         <td>GET</td>
         <td>None</td>
-        <td>/documentaries/Directors/Kip%Andersen</td>
+        <td>/directors/Kip%Andersen</td>
         <td>JSON</td>
         <td>
           {
-          <br>"Director" : "Michael Francis Moore",
-          <br>"Birth" : "23/04/1954",
-          <br>"Death" : "The Sustainability Secret is a groundbreaking feature-length environmental documentary following intrepid filmmaker Kip Andersen as he uncovers the most destructive industry facing the planet today – and investigates why the world's leading environmental organizations are too afraid to talk about it.",
-          <br>"Bio" : "Cowspiracy.png",
-          <br>"Featured" : false
-          <br>},
-          <br>{
-          <br>"Title": "What the health" ,
-          <br>"Director" : "Kip Andersen",
-          <br>"Genre" : "Documentary",
-          <br>"Description" : "What the Health is a 2017 documentary film which critiques the health impact of meat, fish, eggs and dairy products consumption, and questions the practices of leading health and pharmaceutical organizations. Its primary purpose is to advocate for a plant-based diet.",
-          <br>"ImagePath" : "What_the_health.png",
-          <br>"Featured" : false
-          <br>}
+          <br>"_id": "5fb545f13ebe51404e308e68",
+          <br>"Name": "Kip Andersen" ,
+          <br> "Bio": "Kip Andersen is a producer and writer, known for Cowspiracy: The Sustainability Secret (2014), What the Health (2017) and Sea of Life (2017). Besides being a film maker, he is also an entrepreneur and a certified Jivamukti and Kundalini yoga teacher. He is the founder of AUM Films and Media, a non-profit firm focused on creating movies that promote compassion and harmony for all life.",
+          <br>"Birthyear": []
         </td>
       </tr>
       <tr>
@@ -146,83 +126,104 @@
         <td>POST</td>
         <td>JSON</td>
         <td>
-          {
-          <br>"user": "serch23",
-          <br>"password": "lonely",
-          <br>"email": "serch23@gmail.com",
-          <br>"birthdate": "23/11/1989"
+          <br>{
+          <br>"Username": "LionKing",
+          <br>"Password": "pumba",
+          <br>"Email": "lion@gmail.com",
+          <br>"Birthday": "1988-11-21"
           <br>}
         </td>
         <td>JSON</td>
         <td>
-          {
-          <br>"user": "serch23",
-          <br>"password": "lonely",
-          <br>"email": "serch23@gmail.com",
-          <br>"birthdate": "23/11/1989",
-          <br>"id": "96c7e109-5dc3-44c1-b4b8-58d056cca6c0"
+          <br>{
+          <br>"FavoriteList": [],
+          <br>"_id": "5fc681e07ae63d001552e143",
+          <br>"Username": "LionKing",
+          <br>"Password": "$2b$10$Wx5LtWbaOdQqAUVEVGKz7OwBzH4tYkyocwy1p8KaLF1q6xEveH75O",
+          <br>"Email": "lion@gmail.com",
+          <br>"Birthday": "1988-11-21T00:00:00.000Z",
+          <br>"__v": 0
           <br>}
         </td>
       </tr>
       <tr>
         <td>6. Allow users to update their user information</td>
-        <td>/users/:user</td>
+        <td>/users/:Username</td>
         <td>PUT</td>
         <td>JSON</td>
         <td>
-          {
-          <br>"user": "serch23",
-          <br>"password": "together",
-          <br>"email": "serch23@gmail.com",
-          <br>"birthdate": "23/11/1989"
+          <br>{
+          <br>"Username": "LionKing",
+          <br>"Password": "pumba",
+          <br>"Email": "lion@gmail.com",
+          <br>"Birthday": "1988-11-21"
           <br>}
         </td>
         <td>JSON</td>
         <td>
-          {
-          <br>"user": "serch23",
-          <br>"password": "together",
-          <br>"email": "serch23@gmail.com",
-          <br>"birthdate": "1989-11-23T02:00:00.000Z"
+          <br>{
+          <br>"FavoriteList": [],
+          <br>"_id": "5fc68a810cf66a0064fe684a",
+          <br>"Username": "LionKing",
+          <br>"Password": "$2b$10$/t3qf.4T0lN8Rmyip9Gj.eQXnHyl9tb6DVo1MCgS3CwMKONrOD54m",
+          <br>"Email": "thelionking@gmail.com",
+          <br>"Birthday": "1988-11-21T00:00:00.000Z",
+          <br>"__v": 0
           <br>}
         </td>
       </tr>
       <tr>
         <td>7. Allows users to add a documentary inside of their "list of favourites documentaries"</td>
-        <td>/users/:user/documentaries/:title</td>
+        <td>/users/:Username/documentaries/:Title</td>
         <td>POST</td>
-        <td>None</td>
-        <td>/users/serch23/documentaries/Terra</td>
+        <td>JSON</td>
+        <td>/users/:Username/documentaries/5fb561403ebe51404e308e75</td>
         <td>JSON</td>
         <td>
-          {
-          <br>"Favorite List": "Terra",
-          <br>"Id": "1B",
-          <br>"User": "serch23",
-          <br>"Password": "together",
-          <br>"Email": "serch23@gmail.com",
-          <br>"Birthdate": "1989-11-23T02:00:00.000Z"
+          <br>{
+          <br>"FavoriteList": [
+          <br>"5fb561403ebe51404e308e75"
+          <br>],
+          <br>"_id": "5fc68a810cf66a0064fe684a",
+          <br>"Username": "LionKing",
+          <br>"Password": "$2b$10$/t3qf.4T0lN8Rmyip9Gj.eQXnHyl9tb6DVo1MCgS3CwMKONrOD54m",
+          <br>"Email": "thelionking@gmail.com",
+          <br>"Birthday": "1988-11-21T00:00:00.000Z",
+          <br>"__v": 0
+          <br>}
         </td>
       </tr>
       <tr>
-        <td>8. Allow users to Deletes a documentary from the "Favourite List", by name</td>
-        <td>/users/:user/documentaries/:title</td>
+        <td>8. Allow users to Deletes a documentary from the "Favourite List", by Documentary's ID</td>
+        <td>/users/:Username/documentaries/:Title</td>
         <td>DELETE</td>
         <td>None</td>
-        <td>/users/serch23/documentaries/Terra</td>
-        <td>Message</td>
-        <td>"Successful DELETE request removed documentary from the "Favourite List" of the user: serch23"</td>
+        <td>/users/LionKing/documentaries/5fb561403ebe51404e308e75</td>
+        <td>JSON</td>
+        <td>
+          <br>{
+          <br>"FavoriteList": [],
+          <br>"_id": "5fc68a810cf66a0064fe684a",
+          <br>"Username": "LionKing",
+          <br>"Password": "$2b$10$/t3qf.4T0lN8Rmyip9Gj.eQXnHyl9tb6DVo1MCgS3CwMKONrOD54m",
+          <br>"Email": "thelionking@gmail.com",
+          <br>"Birthday": "1988-11-21T00:00:00.000Z",
+          <br>"__v": 0
+          <br>}
+      </td>
       </tr>
-      <tr>
-        <td>9. Allow existing users to deregister</td>
-        <td>/users/:user</td>
-        <td>DELETE</td>
-        <td>None</td>user
-        <td>/users/serch23</td>
-        <td>Message</td>
-        <td>"Successful DELETE request removed the user serch23 from the database"</td>
-      </tr>
-    </table>
-  </section>
-</body>
-</html>
+        <tr>
+          <td>9. Allow existing users to deregister</td>
+          <td>/users/:Username</td>
+          <td>DELETE</td>
+          <td>None</td>
+          <td>/users/FrankSmith</td>
+          <td>Message</td>
+          <td>"Successful DELETE request removed the user FrankSmith from the database"</td>
+        </tr>
+      </table>
+    </section>
+
+  </body>
+
+  </html>
