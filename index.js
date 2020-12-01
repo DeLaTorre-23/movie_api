@@ -1,3 +1,4 @@
+const port = process.env.PORT || 8080;
 const express = require('express'),
   bodyParser = require('body-parser'),
   uuid = require('uuid');
@@ -5,18 +6,20 @@ const express = require('express'),
 const morgan = require('morgan');
 const app = express();
 const mongoose = require('mongoose');
+const { check, validationResult } = require('express-validator');
 
-//Integrate Mongoose into the REST API
+// Integrate Mongoose into the REST API
 const Models = require('./models/models.js');
 
-//Import "passport.js” module into the project
+// Import "passport.js” module into the project
 const passport = require('passport');
 require('./passport');
 
-//Integrate CORS into the REST API
+// Integrate CORS into the REST API
 const cors = require('cors');
 
-//List of Allowed domains requests (allowed origins)
+
+// List of Allowed domains requests (allowed origins)
 let allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
 
 app.use(cors({
@@ -30,7 +33,7 @@ app.use(cors({
   }
 }));
 
-//Allow to export the Models
+// Allow to export the Models
 const Documentaries = Models.Documentary;
 const Users = Models.User;
 const Genres = Models.Genre;
@@ -44,10 +47,10 @@ mongoose.connect('mongodb://localhost:27017/actualdoc', {
 // Middleware function
 app.use(bodyParser.json());
 
-//Import “auth.js” (Authentication Login) into the project
+// Import “auth.js” (Authentication Login) into the project
 let auth = require('./auth')(app);
 
-//log request to server
+// Log request to server
 app.use(morgan('common'));
 app.use(express.static('public'));
 
@@ -57,12 +60,12 @@ app.get('/', (req, res) => {
   res.send('Enjoy the thousands of documentaries on DOCumentality!');
 });
 
-//Get the Documentation file
+// Get the Documentation file
 app.get('/documentation', (req, res) => {
   res.sendFile('public/documentation.html', { root: __dirname });
 });
 
-//Get a list of data about the All documentaries at /documentaries
+// Get a list of data about the All documentaries at /documentaries
 app.get('/documentaries', passport.authenticate('jwt', { session: false }), (req, res) => {
   Documentaries.find()
     .then((documentaries) => {
@@ -86,7 +89,7 @@ app.get('/documentaries/:Title', (req, res) => {
   });
 });
 
-//Get a list of data about the All users
+// Get a list of data about the All users
 app.get('/users', function (req, res) {
   Users.find()
   .then(function (users)  {
@@ -98,7 +101,7 @@ app.get('/users', function (req, res) {
   });
 });
 
-//Get a users by username
+// Get a users by username
 app.get('/users/:Username', (req, res) => {
   Users.findOne({ Username: req.params.Username })
   .then((user) =>  {
@@ -110,7 +113,7 @@ app.get('/users/:Username', (req, res) => {
   });
 });
 
-//Get a list of data about the All genres
+// Get a list of data about the All genres
 app.get('/genres', function (req, res) {
   Genres.find()
   .then(function (genre)  {
@@ -134,7 +137,7 @@ app.get('/genres/:Name', (req, res) => {
   });
 });
 
-//Get a list of data about the All directors
+// Get a list of data about the All directors
 app.get('/directors', function (req, res) {
   Directors.find()
   .then(function (director)  {
@@ -172,16 +175,32 @@ app.get('/directors/:Name', (req, res) => {
   (required)
   Birthday: Date
 }*/
-app.put('/users/:Username', (req, res) => {
+app.put('/users/:Username',
+// Validation logic
+[
+  check('Username', 'Username is required').isLength({min: 5}),
+  check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+  check('Password', 'Password is required').not().isEmpty(),
+  check('Email', 'Email does not appear to be valid').isEmail()
+], (req, res) => {
+
+  // Check the validation object for errors
+  let errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
+
+  let hashedPassword = Users.hashPassword(req.body.Password);
   Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
     {
       Username: req.body.Username,
-      Password: req.body.Password,
+      Password: hashedPassword,
       Email: req.body.Email,
       Birthday: req.body.Birthday
     }
   },
-  { new: true}, //This line makes sure that the update document is returned
+  { new: true}, // This line makes sure that the update document is returned
   (err, updateUser) => {
     if(err) {
       console.error(err);
@@ -203,12 +222,31 @@ app.put('/users/:Username', (req, res) => {
   Email: String,
   Birthday: Date
 }*/
-app.post('/users', (req, res) => {
+app.post('/users',
+  // Validation logic here for request
+  // you can use a chain of methods like .not().isEmpty()
+  // which means "opposite of isEmpty" in plain english "is not empty"
+  // or use .isLength({min: 5}) which means
+  // minimum value of 5 characters are only allowed
+  [
+    check('Username', 'Username is required').isLength({min: 5}),
+    check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+    check('Password', 'Password is required').not().isEmpty(),
+    check('Email', 'Email does not appear to be valid').isEmail()
+  ], (req, res) => {
+
+  // Check the validation object for errors
+  let errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
+
   let hashedPassword = Users.hashPassword(req.body.Password);
   Users.findOne({ Username: req.body.Username }) // Search to see if a user with the requested username already exists
     .then((user) => {
       if (user) {
-        //If the user is found, send a response that it already exists
+        // If the user is found, send a response that it already exists
         return res.status(400).send(req.body.Username + ' already exists');
       } else {
         Users
@@ -238,7 +276,7 @@ app.post('/users/:Username/Documentaries/:Title', (req, res) => {
   Users.findOneAndUpdate({ Username: req.params.Username }, {
     $push: { FavoriteList: req.params.Title },
   },
-  { new: true }, //This line makes sure that the updated document is request
+  { new: true }, // This line makes sure that the updated document is request
   (err, updateUser) => {
     if (err) {
       console.error(err);
@@ -258,7 +296,7 @@ app.delete('/users/:Username', (req, res) => {
     if(!user) {
       res.status(400).send(req.params.Username + ' was not found');
     } else {
-      res.status(200).send(req.params.Username + ' was deleted.');
+      res.status(200).send('Successful DELETE request removed the user ' + req.params.Username + ' from the database.');
     }
   })
   .catch((err) => {
@@ -272,7 +310,7 @@ app.delete('/users/:Username/Documentaries/:Title', (req, res) => {
   Users.findOneAndUpdate(
     { Username: req.params.Username },
     { $pull: { FavoriteList: req.params.Title } },
-    { new: true }, //This line makes sure that the updated document is request
+    { new: true }, // This line makes sure that the updated document is request
     (err, updateUser) => {
       if (err) {
         console.error(err);
@@ -290,7 +328,7 @@ app.use((err, req, res, next) => {
   res.status(500).send('Something broke');
 });
 
-// listen for requests
-app.listen(8080, () =>
-console.log('Your app is listening on port 8080.')
-);
+// Listen for requests
+app.listen(port, '0.0.0.0',() => {
+  console.log('Your app is listening on port 8080.');
+});

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 let documentarySchema = mongoose.Schema({
   Title: {type: String, required: true},
@@ -18,7 +19,6 @@ let documentarySchema = mongoose.Schema({
   Featured: Boolean
 });
 
-const bcrypt = require('bcrypt');
 
 let userSchema = mongoose.Schema({
   Username: {type: String, required: true},
