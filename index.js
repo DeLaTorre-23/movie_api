@@ -39,10 +39,20 @@ const Users = Models.User;
 const Genres = Models.Genre;
 const Directors = Models.Director;
 
+// Local DataBase
+/*
 mongoose.connect('mongodb://localhost:27017/actualdoc', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
+*/
+
+// Online Heroku DataBase
+mongoose.connect('process.env.CONNECTION_URI', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+
 
 // Middleware function
 app.use(bodyParser.json());
