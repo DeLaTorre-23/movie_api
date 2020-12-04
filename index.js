@@ -18,6 +18,11 @@ require('./passport');
 // Integrate CORS into the REST API
 const cors = require('cors');
 
+// Allow to export the Models
+const Documentaries = Models.Documentary;
+const Users = Models.User;
+const Genres = Models.Genre;
+const Directors = Models.Director;
 
 // List of Allowed domains requests (allowed origins)
 let allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
@@ -33,12 +38,6 @@ app.use(cors({
   }
 }));
 
-// Allow to export the Models
-const Documentaries = Models.Documentary;
-const Users = Models.User;
-const Genres = Models.Genre;
-const Directors = Models.Director;
-
 // Local DataBase
 /*
 mongoose.connect('mongodb://localhost:27017/actualdoc', {
@@ -52,7 +51,6 @@ mongoose.connect('process.env.CONNECTION_URI', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
-
 
 // Middleware function
 app.use(bodyParser.json());
@@ -93,7 +91,7 @@ app.get('/documentaries/:Title', (req, res) => {
   .then((documentary) => {
     res.json(documentary);
   })
-  .catch ((err) => {
+  .catch((err) => {
     console.error(err);
     res.status(500).send('Error: ' + err);
   });
@@ -141,7 +139,7 @@ app.get('/genres/:Name', (req, res) => {
   .then((genre) => {
     res.json(genre);
   })
-  .catch ((err) => {
+  .catch((err) => {
     console.error(err);
     res.status(500).send('Error: ' + err);
   });
@@ -165,12 +163,11 @@ app.get('/directors/:Name', (req, res) => {
   .then((director) => {
     res.json(director);
   })
-  .catch ((err) => {
+  .catch((err) => {
     console.error(err);
     res.status(500).send('Error: ' + err);
   });
 });
-
 
 
 // PUT requests
