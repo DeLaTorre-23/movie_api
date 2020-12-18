@@ -86,7 +86,7 @@ app.get('/documentaries', passport.authenticate('jwt', { session: false }), (req
 });
 
 // Get the data about a single documentary, by title
-app.get('/documentaries/:Title', (req, res) => {
+app.get('/documentaries/:Title', passport.authenticate('jwt', { session: false }), (req, res) => {
   Documentaries.findOne({ Title: req.params.Title })
   .then((documentary) => {
     res.json(documentary);
@@ -98,19 +98,19 @@ app.get('/documentaries/:Title', (req, res) => {
 });
 
 // Get a list of data about the All users
-app.get('/users', function (req, res) {
+app.get('/users', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.find()
-  .then(function (users)  {
+  .then((users) => {
     res.status(201).json(users);
   })
-  .catch(function (err) {
+  .catch((err) => {
     console.error(err);
     res.status(500).send('Error: ' + err);
   });
 });
 
 // Get a users by username
-app.get('/users/:Username', (req, res) => {
+app.get('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOne({ Username: req.params.Username })
   .then((user) =>  {
     res.json(user);
@@ -122,19 +122,19 @@ app.get('/users/:Username', (req, res) => {
 });
 
 // Get a list of data about the All genres
-app.get('/genres', function (req, res) {
+app.get('/genres', passport.authenticate('jwt', { session: false }), (req, res) => {
   Genres.find()
-  .then(function (genre)  {
+  .then((genre) => {
     res.status(201).json(genre);
   })
-  .catch(function (err) {
+  .catch((err) => {
     console.error(err);
     res.status(500).send('Error: ' + err);
   });
 });
 
 // Get the data about genres, by name
-app.get('/genres/:Name', (req, res) => {
+app.get('/genres/:Name', passport.authenticate('jwt', { session: false }), (req, res) => {
   Genres.findOne({ Name: req.params.Name })
   .then((genre) => {
     res.json(genre);
@@ -146,19 +146,19 @@ app.get('/genres/:Name', (req, res) => {
 });
 
 // Get a list of data about the All directors
-app.get('/directors', function (req, res) {
+app.get('/directors',  passport.authenticate('jwt', { session: false }), (req, res) => {
   Directors.find()
-  .then(function (director)  {
+  .then( (director) => {
     res.status(201).json(director);
   })
-  .catch(function (err) {
+  .catch( (err) => {
     console.error(err);
     res.status(500).send('Error: ' + err);
   });
 });
 
 // Get the data about a director, by name
-app.get('/directors/:Name', (req, res) => {
+app.get('/directors/:Name', passport.authenticate('jwt', { session: false }), (req, res) => {
   Directors.findOne({ Name: req.params.Name })
   .then((director) => {
     res.json(director);
