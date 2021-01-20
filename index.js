@@ -123,7 +123,7 @@ app.get('/users/:Username', /*passport.authenticate('jwt', { session: false }),*
 });
 
 // Get a list of data about the All genres
-app.get('/genres', /*passport.authenticate('jwt', { session: false }),*/ (req, res) => {
+app.get('/genres', passport.authenticate('jwt', { session: false }), (req, res) => {
   Genres.find()
   .then((genre) => {
     res.status(201).json(genre);
@@ -135,7 +135,7 @@ app.get('/genres', /*passport.authenticate('jwt', { session: false }),*/ (req, r
 });
 
 // Get the data about genres, by name
-app.get('/genres/:Name', /*passport.authenticate('jwt', { session: false }),*/ (req, res) => {
+app.get('/genres/:Name', passport.authenticate('jwt', { session: false }), (req, res) => {
   Genres.findOne({ Name: req.params.Name })
   .then((genre) => {
     res.json(genre);
