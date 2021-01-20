@@ -75,7 +75,7 @@ app.get('/documentation', (req, res) => {
 });
 
 // Get a list of data about the All documentaries at /documentaries
-app.get('/documentaries', /*passport.authenticate('jwt', { session: false }),*/ (req, res) => {
+app.get('/documentaries', passport.authenticate('jwt', { session: false }), (req, res) => {
   Documentaries.find()
     .then((documentaries) => {
       res.status(201).json(documentaries);
@@ -87,7 +87,7 @@ app.get('/documentaries', /*passport.authenticate('jwt', { session: false }),*/ 
 });
 
 // Get the data about a single documentary, by title
-app.get('/documentaries/:Title', /*passport.authenticate('jwt', { session: false }),*/ (req, res) => {
+app.get('/documentaries/:Title', passport.authenticate('jwt', { session: false }), (req, res) => {
   Documentaries.findOne({ Title: req.params.Title })
   .then((documentary) => {
     res.json(documentary);
