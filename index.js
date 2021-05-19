@@ -25,7 +25,7 @@ const Genres = Models.Genre;
 const Directors = Models.Director;
 
 // List of Allowed domains requests (allowed origins)
-let allowedOrigins = ['http://localhost:8080', 'http://testsite.com', 'http://localhost:1234'];
+let allowedOrigins = ['http://localhost:4200', 'http://localhost:8080', 'http://testsite.com', 'http://localhost:1234'];
 
 app.use(cors({
   origin: (origin, callback) => {
