@@ -32,6 +32,9 @@ let allowedOrigins = [
   "http://localhost:1234",
 ];
 
+/**
+ * Function to use CORS with the allowed origins
+ */
 app.use(
   cors({
     origin: (origin, callback) => {
@@ -48,45 +51,55 @@ app.use(
   })
 );
 
-// Local DataBase
-/*
-mongoose.connect('mongodb://localhost:27017/actualdoc', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
-*/
-
-// Online Heroku DataBase
+/**
+ * Connect mongoose with the database
+ * optional with the local database
+ */
+/* Online Heroku DataBase */
 mongoose.connect(process.env.CONNECTION_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
+// Local DataBase
+// mongoose.connect('mongodb://localhost:27017/actualdoc', { useNewUrlParser: true, useUnifiedTopology: true });
 
-// Middleware function
+/**
+ * Middleware function
+ */
 app.use(bodyParser.json());
 
-// Import “auth.js” (Authentication Login) into the project
+/**
+ * Import “auth.js” (Authentication Login) into the project
+ */
 let auth = require("./auth")(app);
 
 // Log request to server
 app.use(morgan("common"));
 app.use(express.static("public"));
 
-// GET requests
-// Returns a default text response when at /
+/*------ GET requests ------ */
+/**
+ * API endpoint to the homepage
+ */
 app.get("/", (req, res) => {
   res.send("Enjoy the thousands of documentaries on DOCumentality!");
 });
 
-// Get the Documentation file
+/**
+ * Get the Documentation file
+ */
 app.get("/documentation", (req, res) => {
   res.sendFile("public/documentation.html", { root: __dirname });
 });
 
-// Get a list of data about the All documentaries at /documentaries
+/**
+ * API endpoint to get all documentaries
+ */
 app.get(
   "/documentaries",
-  /*passport.authenticate('jwt', { session: false }),*/ (req, res) => {
+  /*passport.authenticate('jwt', { session: false }),*/
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
     Documentaries.find()
       .then((documentaries) => {
         res.status(201).json(documentaries);
@@ -98,10 +111,14 @@ app.get(
   }
 );
 
-// Get the data about a single documentary, by title
+/**
+ * API endpoint to get a documentaries by title
+ */
 app.get(
   "/documentaries/:Title",
-  /*passport.authenticate('jwt', { session: false }),*/ (req, res) => {
+  /*passport.authenticate('jwt', { session: false }),*/
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
     Documentaries.findOne({ Title: req.params.Title })
       .then((documentary) => {
         res.json(documentary);
@@ -113,10 +130,14 @@ app.get(
   }
 );
 
-// Get a list of data about the All users
+/**
+ * API call to return user details
+ */
 app.get(
   "/users",
-  /*passport.authenticate('jwt', { session: false }),*/ (req, res) => {
+  /*passport.authenticate('jwt', { session: false }),*/
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
     Users.find()
       .then((users) => {
         res.status(201).json(users);
@@ -128,10 +149,14 @@ app.get(
   }
 );
 
-// Get a users by username
+/**
+ * API call to return user details by username
+ */
 app.get(
   "/users/:Username",
-  /*passport.authenticate('jwt', { session: false }),*/ (req, res) => {
+  /*passport.authenticate('jwt', { session: false }),*/
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
     Users.findOne({ Username: req.params.Username })
       .then((user) => {
         res.json(user);
@@ -143,10 +168,14 @@ app.get(
   }
 );
 
-// Get a list of data about the All genres
+/**
+ * API call to return a  list of data about the All genres
+ */
 app.get(
   "/genres",
-  /*passport.authenticate('jwt', { session: false }),*/ (req, res) => {
+  /*passport.authenticate('jwt', { session: false }),*/
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
     Genres.find()
       .then((genre) => {
         res.status(201).json(genre);
@@ -158,10 +187,14 @@ app.get(
   }
 );
 
-// Get the data about genres, by name
+/**
+ * API endpoint to get genre by name
+ */
 app.get(
   "/genres/:Name",
-  /*passport.authenticate('jwt', { session: false }),*/ (req, res) => {
+  /*passport.authenticate('jwt', { session: false }),*/
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
     Genres.findOne({ Name: req.params.Name })
       .then((genre) => {
         res.json(genre);
@@ -173,10 +206,14 @@ app.get(
   }
 );
 
-// Get a list of data about the All directors
+/**
+ * API endpoint to get director list
+ */
 app.get(
   "/directors",
-  /*passport.authenticate('jwt', { session: false }),*/ (req, res) => {
+  /*passport.authenticate('jwt', { session: false }),*/
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
     Directors.find()
       .then((director) => {
         res.status(201).json(director);
@@ -188,10 +225,14 @@ app.get(
   }
 );
 
-// Get the data about a director, by name
+/**
+ * API endpoint to get director by name
+ */
 app.get(
   "/directors/:Name",
-  /*passport.authenticate('jwt', { session: false }),*/ (req, res) => {
+  /*passport.authenticate('jwt', { session: false }),*/
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
     Directors.findOne({ Name: req.params.Name })
       .then((director) => {
         res.json(director);
@@ -203,18 +244,18 @@ app.get(
   }
 );
 
-// PUT requests
-// Update the Info of a user, by userName
-/* We’ll expect JSON in this format
-{
-  Username: String,
-  (required)
-  Password: String,
-  (required)
-  Email: String,
-  (required)
-  Birthday: Date
-}*/
+/*------ PUT requests ------*/
+/**
+ * API endpoint to update user's information
+ *
+ * We’ll expect JSON in this format
+ * {
+ *  Username: String, (required)
+ *  Password: String, (required)
+ *  Email: String, (required)
+ *  Birthday: Date
+ * }
+ */
 app.put(
   "/users/:Username",
   // Validation logic
@@ -228,8 +269,7 @@ app.put(
     check("Email", "Email does not appear to be valid").isEmail(),
   ],
   (req, res) => {
-    // Check the validation object for errors
-    let errors = validationResult(req);
+    let errors = validationResult(req); // Check the validation object for errors
 
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
@@ -259,16 +299,19 @@ app.put(
   }
 );
 
-// POST requests
-// Allow new users to register
-/* We’ll expect JSON in this format
-{
-  ID: Integer,
-  Username: String,
-  Password: String,
-  Email: String,
-  Birthday: Date
-}*/
+/*------ POST requests ------*/
+/**
+ * API call to create a new user
+ *
+ * We’ll expect JSON in this format
+ * {
+ *  ID: Integer,
+ *  Username: String,
+ *  Password: String,
+ *  Email: String,
+ *  Birthday: Date
+ * }
+ */
 app.post(
   "/users",
   // Validation logic here for request
@@ -286,8 +329,7 @@ app.post(
     check("Email", "Email does not appear to be valid").isEmail(),
   ],
   (req, res) => {
-    // Check the validation object for errors
-    let errors = validationResult(req);
+    let errors = validationResult(req); // Check the validation object for errors
 
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
@@ -322,7 +364,9 @@ app.post(
   }
 );
 
-// Post a new documentary to the "Favorites List" of a user
+/**
+ * API endpoint to add a documentary to the "Favorite List" of a user
+ */
 app.post("/users/:Username/Documentaries/:Title", (req, res) => {
   Users.findOneAndUpdate(
     { Username: req.params.Username },
@@ -341,8 +385,10 @@ app.post("/users/:Username/Documentaries/:Title", (req, res) => {
   );
 });
 
-// DELETE requests
-// Deregister a user from the database, by username
+/*------  DELETE requests ------*/
+/**
+ * Deregister a user from the database, by username
+ */
 app.delete("/users/:Username", (req, res) => {
   Users.findOneAndRemove({ Username: req.params.Username })
     .then((user) => {
@@ -364,7 +410,9 @@ app.delete("/users/:Username", (req, res) => {
     });
 });
 
-// Deletes a documentary from the "Favorite List", by title
+/**
+ * API endpoint to delete a documentary from the "Favorite List", by title
+ */
 app.delete("/users/:Username/Documentaries/:Title", (req, res) => {
   Users.findOneAndUpdate(
     { Username: req.params.Username },
