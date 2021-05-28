@@ -147,7 +147,7 @@ app.get(
 app.get(
   "/users",
   // passport.authenticate('jwt', { session: false }),
-  passport.authenticate("jwt", { session: false }),
+
   (req, res) => {
     Users.find()
       .then((users) => {
@@ -166,7 +166,7 @@ app.get(
 app.get(
   "/users/:Username",
   // passport.authenticate('jwt', { session: false }),
-  passport.authenticate("jwt", { session: false }),
+
   (req, res) => {
     Users.findOne({ Username: req.params.Username })
       .then((user) => {
@@ -221,7 +221,7 @@ app.get(
 app.get(
   "/directors",
   /*passport.authenticate('jwt', { session: false }),*/
-  passport.authenticate("jwt", { session: false }),
+
   (req, res) => {
     Directors.find()
       .then((director) => {
@@ -240,7 +240,7 @@ app.get(
 app.get(
   "/directors/:Name",
   /*passport.authenticate('jwt', { session: false }),*/
-  passport.authenticate("jwt", { session: false }),
+
   (req, res) => {
     Directors.findOne({ Name: req.params.Name })
       .then((director) => {
