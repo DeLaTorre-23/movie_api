@@ -26,15 +26,11 @@ const Directors = Models.Director;
 
 // List of Allowed domains requests (allowed origins)
 let allowedOrigins = [
-  "http://localhost:4200",
   "http://localhost:8080",
   "http://testsite.com",
   "http://localhost:1234",
 ];
 
-/**
- * Function to use CORS with the allowed origins
- */
 app.use(
   cors({
     origin: (origin, callback) => {
@@ -51,67 +47,45 @@ app.use(
   })
 );
 
-/**
- * Middleware function
- */
-app.use(bodyParser.json());
-
-// Logging request to server
-app.use(morgan("common"));
-
-// Serving Static Files
-app.use(express.static("public"));
-
-// Error-Handling middleware function that will log all application-level errors to th terminal
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send("Something broke");
+// Local DataBase
+/*
+mongoose.connect('mongodb://localhost:27017/actualdoc', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
 });
+*/
 
-/**
- * Connect mongoose with the database
- * optional with the local database
- */
-/* Online Heroku DataBase */
+// Online Heroku DataBase
 mongoose.connect(process.env.CONNECTION_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
-// Local DataBase
-// mongoose.connect('mongodb://localhost:27017/actualdoc', { useNewUrlParser: true, useUnifiedTopology: true });
 
-// Listen for requests
-app.listen(port, "0.0.0.0", () => {
-  console.log("Your app is listening on port 8080.");
-});
+// Middleware function
+app.use(bodyParser.json());
 
-/**
- * Import “auth.js” (Authentication Login) into the project
- */
+// Import “auth.js” (Authentication Login) into the project
 let auth = require("./auth")(app);
 
-/*------ GET requests ------ */
-/**
- * API endpoint to the homepage
- */
+// Log request to server
+app.use(morgan("common"));
+app.use(express.static("public"));
+
+// GET requests
+// Returns a default text response when at /
 app.get("/", (req, res) => {
   res.send("Enjoy the thousands of documentaries on DOCumentality!");
 });
 
-/**
- * Get the Documentation file
- */
+// Get the Documentation file
 app.get("/documentation", (req, res) => {
   res.sendFile("public/documentation.html", { root: __dirname });
 });
 
-/**
- * API endpoint to get all documentaries
- */
+// Get a list of data about the All documentaries at /documentaries
 app.get(
   "/documentaries",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
+  /*passport.authenticate('jwt', { session: false }),*/ (req, res) => {
     Documentaries.find()
       .then((documentaries) => {
         res.status(201).json(documentaries);
@@ -123,13 +97,10 @@ app.get(
   }
 );
 
-/**
- * API endpoint to get a documentaries by title
- */
+// Get the data about a single documentary, by title
 app.get(
   "/documentaries/:Title",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
+  /*passport.authenticate('jwt', { session: false }),*/ (req, res) => {
     Documentaries.findOne({ Title: req.params.Title })
       .then((documentary) => {
         res.json(documentary);
@@ -141,14 +112,10 @@ app.get(
   }
 );
 
-/**
- * API call to return user details
- */
+// Get a list of data about the All users
 app.get(
   "/users",
-  // passport.authenticate('jwt', { session: false }),
-
-  (req, res) => {
+  /*passport.authenticate('jwt', { session: false }),*/ (req, res) => {
     Users.find()
       .then((users) => {
         res.status(201).json(users);
@@ -160,14 +127,10 @@ app.get(
   }
 );
 
-/**
- * API call to return user details by username
- */
+// Get a users by username
 app.get(
   "/users/:Username",
-  // passport.authenticate('jwt', { session: false }),
-
-  (req, res) => {
+  /*passport.authenticate('jwt', { session: false }),*/ (req, res) => {
     Users.findOne({ Username: req.params.Username })
       .then((user) => {
         res.json(user);
@@ -179,13 +142,10 @@ app.get(
   }
 );
 
-/**
- * API call to return a  list of data about the All genres
- */
+// Get a list of data about the All genres
 app.get(
   "/genres",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
+  /*passport.authenticate('jwt', { session: false }),*/ (req, res) => {
     Genres.find()
       .then((genre) => {
         res.status(201).json(genre);
@@ -197,13 +157,10 @@ app.get(
   }
 );
 
-/**
- * API endpoint to get genre by name
- */
+// Get the data about genres, by name
 app.get(
   "/genres/:Name",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
+  /*passport.authenticate('jwt', { session: false }),*/ (req, res) => {
     Genres.findOne({ Name: req.params.Name })
       .then((genre) => {
         res.json(genre);
@@ -215,14 +172,10 @@ app.get(
   }
 );
 
-/**
- * API endpoint to get director list
- */
+// Get a list of data about the All directors
 app.get(
   "/directors",
-  /*passport.authenticate('jwt', { session: false }),*/
-
-  (req, res) => {
+  /*passport.authenticate('jwt', { session: false }),*/ (req, res) => {
     Directors.find()
       .then((director) => {
         res.status(201).json(director);
@@ -234,14 +187,10 @@ app.get(
   }
 );
 
-/**
- * API endpoint to get director by name
- */
+// Get the data about a director, by name
 app.get(
   "/directors/:Name",
-  /*passport.authenticate('jwt', { session: false }),*/
-
-  (req, res) => {
+  /*passport.authenticate('jwt', { session: false }),*/ (req, res) => {
     Directors.findOne({ Name: req.params.Name })
       .then((director) => {
         res.json(director);
@@ -253,103 +202,18 @@ app.get(
   }
 );
 
-/*------ POST requests ------*/
-/**
- * API call to create a new user
- *
- * We’ll expect JSON in this format
- * {
- *  ID: Integer,
- *  Username: String,
- *  Password: String,
- *  Email: String,
- *  Birthday: Date
- * }
- */
-app.post(
-  "/users",
-  // Validation logic here for request
-  // you can use a chain of methods like .not().isEmpty()
-  // which means "opposite of isEmpty" in plain english "is not empty"
-  // or use .isLength({min: 5}) which means
-  // minimum value of 5 characters are only allowed
-  [
-    check("Username", "Username is required").isLength({ min: 5 }),
-    check(
-      "Username",
-      "Username contains non alphanumeric characters - not allowed."
-    ).isAlphanumeric(),
-    check("Password", "Password is required").not().isEmpty(),
-    check("Email", "Email does not appear to be valid").isEmail(),
-  ],
-  (req, res) => {
-    let errors = validationResult(req); // Check the validation object for errors
-
-    if (!errors.isEmpty()) {
-      return res.status(422).json({ errors: errors.array() });
-    }
-    let hashedPassword = Users.hashPassword(req.body.Password);
-    Users.findOne({ Username: req.body.Username }) // Search to see if a user with the requested username already exists
-      .then((user) => {
-        if (user) {
-          // If the user is found, send a response that it already exists
-          return res.status(400).send(req.body.Username + " already exists");
-        } else {
-          Users.create({
-            Username: req.body.Username,
-            Password: hashedPassword,
-            Email: req.body.Email,
-            Birthday: req.body.Birthday,
-          })
-            .then((user) => {
-              res.status(201).json(user);
-            })
-            .catch((error) => {
-              console.error(error);
-              res.status(500).send("Error: " + error);
-            });
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-        res.status(500).send("Error: " + error);
-      });
-  }
-);
-
-/**
- * API endpoint to add a documentary to the "Favorite List" of a user
- */
-app.post("/users/:Username/Documentaries/:Title", (req, res) => {
-  Users.findOneAndUpdate(
-    { Username: req.params.Username },
-    {
-      $push: { FavoriteList: req.params.Title },
-    },
-    { new: true }, // This line makes sure that the updated document is request
-    (err, updateUser) => {
-      if (err) {
-        console.error(err);
-        res.status(500).send("Error: " + err);
-      } else {
-        res.json(updateUser);
-      }
-    }
-  );
-});
-
-/*------ PUT requests ------*/
-/**
- * API endpoint to update user's information
- *
- * We’ll expect JSON in this format
- * {
- *  Username: String, (required)
- *  Password: String, (required)
- *  Email: String, (required)
- *  Birthday: Date
- * }
- */
+// PUT requests
+// Update the Info of a user, by userName
+/* We’ll expect JSON in this format
+{
+  Username: String,
+  (required)
+  Password: String,
+  (required)
+  Email: String,
+  (required)
+  Birthday: Date
+}*/
 app.put(
   "/users/:Username",
   // Validation logic
@@ -363,7 +227,8 @@ app.put(
     check("Email", "Email does not appear to be valid").isEmail(),
   ],
   (req, res) => {
-    let errors = validationResult(req); // Check the validation object for errors
+    // Check the validation object for errors
+    let errors = validationResult(req);
 
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
@@ -393,7 +258,89 @@ app.put(
   }
 );
 
-/*------  DELETE requests ------*/
+// POST requests
+// Allow new users to register
+/* We’ll expect JSON in this format
+{
+  ID: Integer,
+  Username: String,
+  Password: String,
+  Email: String,
+  Birthday: Date
+}*/
+app.post(
+  "/users",
+  // Validation logic here for request
+  // you can use a chain of methods like .not().isEmpty()
+  // which means "opposite of isEmpty" in plain english "is not empty"
+  // or use .isLength({min: 5}) which means
+  // minimum value of 5 characters are only allowed
+  [
+    check("Username", "Username is required").isLength({ min: 5 }),
+    check(
+      "Username",
+      "Username contains non alphanumeric characters - not allowed."
+    ).isAlphanumeric(),
+    check("Password", "Password is required").not().isEmpty(),
+    check("Email", "Email does not appear to be valid").isEmail(),
+  ],
+  (req, res) => {
+    // Check the validation object for errors
+    let errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+
+    let hashedPassword = Users.hashPassword(req.body.Password);
+    Users.findOne({ Username: req.body.Username }) // Search to see if a user with the requested username already exists
+      .then((user) => {
+        if (user) {
+          // If the user is found, send a response that it already exists
+          return res.status(400).send(req.body.Username + " already exists");
+        } else {
+          Users.create({
+            Username: req.body.Username,
+            Password: hashedPassword,
+            Email: req.body.Email,
+            Birthday: req.body.Birthday,
+          })
+            .then((user) => {
+              res.status(201).json(user);
+            })
+            .catch((error) => {
+              console.error(error);
+              res.status(500).send("Error: " + error);
+            });
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        res.status(500).send("Error: " + error);
+      });
+  }
+);
+
+// Post a new documentary to the "Favourites List" of a user
+app.post("/users/:Username/Documentaries/:Title", (req, res) => {
+  Users.findOneAndUpdate(
+    { Username: req.params.Username },
+    {
+      $push: { FavoriteList: req.params.Title },
+    },
+    { new: true }, // This line makes sure that the updated document is request
+    (err, updateUser) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send("Error: " + err);
+      } else {
+        res.json(updateUser);
+      }
+    }
+  );
+});
+
+// DELETE requests
 // Deregister a user from the database, by username
 app.delete("/users/:Username", (req, res) => {
   Users.findOneAndRemove({ Username: req.params.Username })
@@ -416,9 +363,7 @@ app.delete("/users/:Username", (req, res) => {
     });
 });
 
-/**
- * API endpoint to delete a documentary from the "Favorite List", by title
- */
+// Deletes a documentary from the "Favourite List", by title
 app.delete("/users/:Username/Documentaries/:Title", (req, res) => {
   Users.findOneAndUpdate(
     { Username: req.params.Username },
@@ -433,4 +378,15 @@ app.delete("/users/:Username/Documentaries/:Title", (req, res) => {
       }
     }
   );
+});
+
+// Error-Handling middleware function that will log all application-level errors to th terminal
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send("Something broke");
+});
+
+// Listen for requests
+app.listen(port, "0.0.0.0", () => {
+  console.log("Your app is listening on port 8080.");
 });
