@@ -26,6 +26,7 @@ const Directors = Models.Director;
 
 // List of Allowed domains requests (allowed origins)
 let allowedOrigins = [
+  "http://localhost:4200",
   "http://localhost:8080",
   "http://testsite.com",
   "http://localhost:1234",
@@ -321,7 +322,7 @@ app.post(
   }
 );
 
-// Post a new documentary to the "Favourites List" of a user
+// Post a new documentary to the "Favorites List" of a user
 app.post("/users/:Username/Documentaries/:Title", (req, res) => {
   Users.findOneAndUpdate(
     { Username: req.params.Username },
@@ -363,7 +364,7 @@ app.delete("/users/:Username", (req, res) => {
     });
 });
 
-// Deletes a documentary from the "Favourite List", by title
+// Deletes a documentary from the "Favorite List", by title
 app.delete("/users/:Username/Documentaries/:Title", (req, res) => {
   Users.findOneAndUpdate(
     { Username: req.params.Username },
